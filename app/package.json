@@ -2,6 +2,9 @@
   "name": "nmcluncher-app",
   "version": "1.3.0",
   "description": "NMCLuncher Desktop Client - NMC CITY RP",
+  "private": true,
+  "license": "MIT",
+  "author": "Dara",
   "main": "main.js",
   "scripts": {
     "start": "electron ."

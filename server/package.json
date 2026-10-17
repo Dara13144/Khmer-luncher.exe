@@ -2,6 +2,9 @@
   "name": "nmc-city-server",
   "version": "1.0.0",
   "description": "Production Backend & Live Systems API for NMCLuncher (NMC CITY RP)",
+  "private": true,
+  "license": "MIT",
+  "author": "Dara",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
