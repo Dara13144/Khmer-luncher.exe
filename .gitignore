@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Production builds and executables (Keep Git repo light & fast)
+dist/
+*.exe
+build/
+
+# Java / Gradle build files
+.gradle/
+**/build/
+!src/**
+
+# IDE & OS files
+.vscode/
+.idea/
+*.log
+.DS_Store
+Thumbs.db

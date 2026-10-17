@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.simplepvp.mixin.client",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "MouseMixin",
+    "ReachMixin",
+    "AbstractClientPlayerEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

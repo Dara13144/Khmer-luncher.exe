@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DYNASTORE LAUNCHER - Esports & PvP Edition</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Ambient Radial Backlight Aura -->
+  <div class="ambient-glow" id="ambient-glow"></div>
+
+  <!-- Custom Frameless Titlebar with Drag Region -->
+  <header id="titlebar">
+    <div class="drag-region">
+      <div class="brand-badge">
+        <img src="assets/dynastore_logo.png" alt="DYNASTORE" class="titlebar-logo-img">
+        <span class="brand-title">DYNASTORELAUNCHER</span>
+      </div>
+      <span class="version-tag">PRO ESPORTS x64</span>
+      <div class="runtime-status-pill">
+        <span class="pulse-indicator"></span>
+        <span class="runtime-text" id="runtime-status-label">FABRIC 1.21.1 READY</span>
+      </div>
+    </div>
+    <div class="window-controls">
+      <button id="min-btn" class="win-btn" title="Minimize">
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <button id="max-btn" class="win-btn" title="Maximize/Restore">
+        <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>
+      </button>
+      <button id="close-btn" class="win-btn win-close" title="Close">
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div id="app-container">
+    <!-- Animated Sidebar Navigation with SVG Micro-interactions -->
+    <aside id="sidebar">
+      <div class="logo-container">
+        <div class="logo-aura">
+          <img src="assets/dynastore_logo.png" alt="DYNASTORE" class="sidebar-logo-img">
+        </div>
+        <div class="brand-text-block">
+          <h2>DYNASTORE</h2>
+          <span class="logo-subtitle">PvP CLIENT RIG</span>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <!-- 1. Home / Games Hub -->
+        <button class="nav-btn active" data-target="home" id="nav-home">
+          <svg class="nav-svg icon-controller" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="6" width="20" height="12" rx="6"/>
+            <path d="M6 12h4m-2-2v4"/>
+            <line x1="15" y1="11" x2="15.01" y2="11" stroke-width="3" stroke-linecap="round"/>
+            <line x1="18" y1="13" x2="18.01" y2="13" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          <span class="nav-text">Game Hub</span>
+        </button>
+
+        <!-- 2. Interactive Keystrokes & Keyboard Visual Editor -->
+        <button class="nav-btn" data-target="keystrokes-editor" id="nav-keystrokes">
+          <svg class="nav-svg icon-speedometer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 14v-4"/>
+            <path d="M3.34 19a10 10 0 1 1 17.32 0"/>
+            <line class="needle" x1="12" y1="14" x2="16" y2="10" stroke-linecap="round"/>
+          </svg>
+          <span class="nav-text">Keystrokes Editor</span>
+        </button>
+
+        <!-- 3. Minecraft Java & Mods -->
+        <button class="nav-btn" data-target="mod-manager" id="nav-mods">
+          <svg class="nav-svg icon-chip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="4" width="16" height="16" rx="2"/>
+            <rect x="9" y="9" width="6" height="6"/>
+            <line x1="9" y1="1" x2="9" y2="4"/>
+            <line x1="15" y1="1" x2="15" y2="4"/>
+            <line x1="9" y1="20" x2="9" y2="23"/>
+            <line x1="15" y1="20" x2="15" y2="23"/>
+            <line x1="20" y1="9" x2="23" y2="9"/>
+            <line x1="20" y1="15" x2="23" y2="15"/>
+            <line x1="1" y1="9" x2="4" y2="9"/>
+            <line x1="1" y1="15" x2="4" y2="15"/>
+          </svg>
+          <span class="nav-text">Java 1.21.1 Engine</span>
+        </button>
+
+        <!-- 4. Minecraft Bedrock -->
+        <button class="nav-btn" data-target="bedrock" id="nav-bedrock">
+          <svg class="nav-svg icon-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path class="folder-back" d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+            <path class="folder-front" d="M2 11h20v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8z"/>
+          </svg>
+          <span class="nav-text">Bedrock UWP</span>
+        </button>
+
+        <!-- 5. PvP HUD Modules -->
+        <button class="nav-btn" data-target="minecraft-hud" id="nav-hud">
+          <svg class="nav-svg icon-lightning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          <span class="nav-text">Tournament HUD</span>
+        </button>
+
+        <!-- 6. City News -->
+        <button class="nav-btn" data-target="news" id="nav-news">
+          <svg class="nav-svg icon-news" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/>
+            <path d="M18 14h-8m8-4h-8m8-4h-8"/>
+          </svg>
+          <span class="nav-text">Announcements</span>
+        </button>
+
+        <!-- 7. Profile & Auth -->
+        <button class="nav-btn" data-target="profile" id="nav-profile">
+          <svg class="nav-svg icon-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span class="nav-text">Esports Profile</span>
+        </button>
+      </nav>
+
+      <!-- Active Profile Banner with Breathing Border Glow -->
+      <div class="active-profile-banner">
+        <div class="avatar-wrapper">
+          <img id="sidebar-avatar" src="https://minotar.net/avatar/MHF_Steve/40" alt="Avatar" class="avatar-img">
+          <span class="status-indicator-dot online"></span>
+        </div>
+        <div class="profile-info-mini">
+          <span class="player-handle" id="sidebar-player-name">DaraPlayer</span>
+          <span class="client-badge">PRO EDITION</span>
+        </div>
+      </div>
+
+      <div class="lang-selector">
+        <button type="button" onclick="setLanguage('km')" class="lang-btn active" id="lang-btn-km">🇰🇭 KH</button>
+        <button type="button" onclick="setLanguage('en')" class="lang-btn" id="lang-btn-en">🇬🇧 EN</button>
+      </div>
+    </aside>
+
+    <div class="main-viewport">
+      <!-- Top Navigation Bar matching the Esport Launcher Specification -->
+      <header class="launcher-top-navbar" id="launcher-top-navbar">
+        <nav class="top-nav-tabs" id="top-nav-tabs">
+          <button class="top-tab-btn active" data-tab="play">
+            <span>Play</span>
+          </button>
+          <button class="top-tab-btn" data-tab="marketplace">
+            <span>Marketplace</span>
+          </button>
+          <button class="top-tab-btn" data-tab="pvp-hud">
+            <svg class="tab-icon-swords" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/>
+              <line x1="13" y1="19" x2="19" y2="13"/>
+              <line x1="16" y1="16" x2="20" y2="20"/>
+              <line x1="19" y1="21" x2="21" y2="19"/>
+              <polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/>
+              <line x1="5" y1="14" x2="9" y2="18"/>
+              <line x1="7" y1="17" x2="4" y2="20"/>
+              <line x1="3" y1="19" x2="5" y2="21"/>
+            </svg>
+            <span>PvP HUD Mods</span>
+          </button>
+          <button class="top-tab-btn" data-tab="mods-manager">
+            <span>Mods Manager</span>
+          </button>
+          <button class="top-tab-btn" data-tab="installations">
+            <span>Installations</span>
+          </button>
+          <button class="top-tab-btn" data-tab="skins">
+            <span>Skins</span>
+          </button>
+          <button class="top-tab-btn" data-tab="patch-notes">
+            <span>Patch Notes</span>
+          </button>
+          
+          <!-- Animated Neon Emerald Indicator Line -->
+          <div class="top-tab-indicator" id="top-tab-indicator"></div>
+        </nav>
+
+        <!-- Right Profile Widget -->
+        <div class="top-nav-right">
+          <!-- Profile Widget with Minecraft Avatar & OFFLINE status -->
+          <div class="profile-dropdown-wrapper" id="profile-dropdown-wrapper">
+            <button class="top-profile-trigger" id="top-profile-trigger" onclick="toggleProfileDropdown()">
+              <div class="top-avatar-box">
+                <img src="https://minotar.net/avatar/Dara111111/40" alt="Avatar" class="pixel-avatar" id="top-avatar-img">
+              </div>
+              <div class="top-user-meta">
+                <span class="top-username" id="top-username-label">Dara111111</span>
+                <span class="status-chip offline" id="top-status-chip">OFFLINE</span>
+              </div>
+              <svg class="chevron-icon" id="top-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div class="top-profile-menu" id="top-profile-menu">
+              <div class="menu-header">
+                <span class="menu-label">Signed in as</span>
+                <span class="menu-name">Dara111111</span>
+              </div>
+              <div class="menu-status-toggle">
+                <span class="status-sec-title">PRESENCE STATE</span>
+                <div class="status-options">
+                  <button class="status-opt-btn" onclick="setUserPresence('ONLINE')">
+                    <span class="status-dot dot-online"></span> Online
+                  </button>
+                  <button class="status-opt-btn active" onclick="setUserPresence('OFFLINE')">
+                    <span class="status-dot dot-offline"></span> Offline
+                  </button>
+                </div>
+              </div>
+              <div class="menu-divider"></div>
+              <button class="menu-item-btn" onclick="navigateToTopTab('profile')">Account Settings</button>
+              <button class="menu-item-btn" onclick="navigateToTopTab('skins')">Skins & Cloaks</button>
+              <button class="menu-item-btn text-danger" onclick="navigateToTopTab('profile')">Switch / Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content Area with Spring Animations -->
+      <main id="content-area">
+        <!-- ===================================================================
+             TAB 1: GAME HUB (FiveM + Minecraft Java + Bedrock)
+             =================================================================== -->
+        <section id="home" class="page active">
+        <div class="hero-header">
+          <div class="hero-left">
+            <div class="pill-badge combat">
+              <span class="sparkle">✦</span> ESPORTS LAUNCHER RIG
+            </div>
+            <h1 id="txt-welcome">NMC CITY RP & DYNASTORE</h1>
+            <p class="hero-desc" id="txt-welcome-sub">Next-generation esports client engine with live telemetry, low-latency Fabric runtime, and PvP HUD integration.</p>
+          </div>
+          <div class="hero-actions-container">
+            <button id="play-btn" class="primary-btn shimmer-btn fivem-btn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+              <span id="txt-play-fivem">PLAY FIVEM RP</span>
+            </button>
+            <button id="launch-modded-mc-btn" class="primary-btn shimmer-btn mc-java-btn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5L4.5 9.75 3 10.5l9 4.5 9-4.5-1.5-.75L12 13.5zm0 5L4.5 14.75 3 15.5l9 4.5 9-4.5-1.5-.75L12 18.5z"/></svg>
+              <span id="txt-play-java">BOOT MINECRAFT 1.21.1</span>
+            </button>
+            <button id="home-bedrock-btn" class="primary-btn shimmer-btn bedrock-btn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              <span id="txt-play-bedrock">CONNECT BEDROCK</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Real-Time Esports Server Telemetry Cards -->
+        <div class="telemetry-grid">
+          <div class="telemetry-card" id="card-fivem">
+            <div class="card-glow-edge"></div>
+            <div class="telemetry-top">
+              <div class="status-lead">
+                <span class="live-dot online" id="dot-fivem"></span>
+                <span class="server-title">FiveM Community</span>
+              </div>
+              <span class="metric-pill cyan" id="ping-fivem">38 ms</span>
+            </div>
+            <div class="metric-center">
+              <span class="big-counter" id="count-fivem">142</span>
+              <span class="counter-label">/ 256 Citizens Online</span>
+            </div>
+            <div class="metric-footer">
+              <code>play.nmccityrp.com:30120</code>
+            </div>
+          </div>
+
+          <div class="telemetry-card" id="card-mc">
+            <div class="card-glow-edge"></div>
+            <div class="telemetry-top">
+              <div class="status-lead">
+                <span class="live-dot online" id="dot-java"></span>
+                <span class="server-title">Minecraft 1.21.1 Fabric</span>
+              </div>
+              <span class="metric-pill green">Sodium 0.5.11+</span>
+            </div>
+            <div class="metric-center">
+              <span class="big-counter" id="count-java">64</span>
+              <span class="counter-label">/ 100 PvP Gladiators</span>
+            </div>
+            <div class="metric-footer">
+              <code>mc.nmccityrp.com:25565</code>
+            </div>
+          </div>
+
+          <div class="telemetry-card" id="card-bedrock">
+            <div class="card-glow-edge"></div>
+            <div class="telemetry-top">
+              <div class="status-lead">
+                <span class="live-dot online" id="dot-bedrock"></span>
+                <span class="server-title">Bedrock Win 10/11</span>
+              </div>
+              <span class="metric-pill purple">UWP Protocol</span>
+            </div>
+            <div class="metric-center">
+              <span class="big-counter" id="count-bedrock">38</span>
+              <span class="counter-label">/ 80 Crossplay Citizens</span>
+            </div>
+            <div class="metric-footer">
+              <code>bedrock.nmccityrp.com:19132</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- FPS Engine & Hardware Performance Bar -->
+        <div class="hardware-performance-strip">
+          <div class="perf-stat">
+            <svg class="perf-icon icon-lightning" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <div>
+              <span class="perf-title">FPS Engine:</span>
+              <span class="perf-val" id="telemetry-fps-val">240+ FPS Target</span>
+            </div>
+          </div>
+          <div class="perf-stat">
+            <svg class="perf-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <div>
+              <span class="perf-title">JVM Heap:</span>
+              <span class="perf-val" id="telemetry-heap-val">4 GB G1GC (Optimal)</span>
+            </div>
+          </div>
+          <div class="perf-stat">
+            <svg class="perf-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            <div>
+              <span class="perf-title">Reach Physics:</span>
+              <span class="perf-val" id="telemetry-reach-val">Euclidean Raycast</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           TAB 2: INTERACTIVE KEYBOARD & KEYSTROKES VISUAL EDITOR
+           =================================================================== -->
+      <section id="keystrokes-editor" class="page">
+        <div class="section-header-row">
+          <div>
+            <h2 id="txt-ks-title">Interactive Keystrokes & Keyboard Visual Editor</h2>
+            <p class="section-subtitle">Real-time customizable on-screen keystroke telemetry rig. Test by pressing physical keyboard and mouse buttons!</p>
+          </div>
+          <button id="save-keystrokes-btn" class="primary-btn shimmer-btn">
+            <span>💾 Save & Sync Config</span>
+          </button>
+        </div>
+
+        <div class="editor-workspace-layout">
+          <!-- Live Interactive Keystroke Rig Area -->
+          <div class="keystrokes-canvas-container">
+            <div class="canvas-header">
+              <span class="canvas-title">LIVE ON-SCREEN TELEMETRY RIG</span>
+              <span class="test-badge">● INTERACTIVE TEST MODE ACTIVE</span>
+            </div>
+
+            <!-- Virtual Keyboard Rig -->
+            <div class="keystrokes-virtual-rig" id="virtual-rig">
+              <!-- Top Row: W Key -->
+              <div class="rig-row center-row">
+                <div class="vkey" id="vkey-KeyW" data-key="KeyW" data-label="W">
+                  <span class="vkey-char">W</span>
+                  <div class="vkey-ripple"></div>
+                </div>
+              </div>
+
+              <!-- Middle Row: A S D Keys -->
+              <div class="rig-row center-row">
+                <div class="vkey" id="vkey-KeyA" data-key="KeyA" data-label="A">
+                  <span class="vkey-char">A</span>
+                  <div class="vkey-ripple"></div>
+                </div>
+                <div class="vkey" id="vkey-KeyS" data-key="KeyS" data-label="S">
+                  <span class="vkey-char">S</span>
+                  <div class="vkey-ripple"></div>
+                </div>
+                <div class="vkey" id="vkey-KeyD" data-key="KeyD" data-label="D">
+                  <span class="vkey-char">D</span>
+                  <div class="vkey-ripple"></div>
+                </div>
+              </div>
+
+              <!-- Mouse Row: LMB & RMB with Live CPS Meters -->
+              <div class="rig-row split-row">
+                <div class="vkey mouse-key" id="vkey-LMB" data-key="LMB">
+                  <div class="mouse-label">LMB</div>
+                  <div class="cps-display"><span id="live-lmb-cps">0</span> CPS</div>
+                  <div class="vkey-ripple"></div>
+                </div>
+                <div class="vkey mouse-key" id="vkey-RMB" data-key="RMB">
+                  <div class="mouse-label">RMB</div>
+                  <div class="cps-display"><span id="live-rmb-cps">0</span> CPS</div>
+                  <div class="vkey-ripple"></div>
+                </div>
+              </div>
+
+              <!-- Modifiers Row: Spacebar -->
+              <div class="rig-row center-row">
+                <div class="vkey space-key" id="vkey-Space" data-key="Space">
+                  <div class="space-line"></div>
+                  <div class="vkey-ripple"></div>
+                </div>
+              </div>
+
+              <!-- Bottom Row: Shift & Ctrl + Speedometer Bar -->
+              <div class="rig-row split-row">
+                <div class="vkey mod-key" id="vkey-ShiftLeft" data-key="ShiftLeft">
+                  <span class="vkey-char">SHIFT</span>
+                  <div class="vkey-ripple"></div>
+                </div>
+                <div class="vkey mod-key" id="vkey-ControlLeft" data-key="ControlLeft">
+                  <span class="vkey-char">CTRL</span>
+                  <div class="vkey-ripple"></div>
+                </div>
+              </div>
+
+              <!-- Live Velocity & Speedometer HUD Strip -->
+              <div class="rig-speedometer-strip">
+                <div class="speed-left">
+                  <span class="speed-label">SPEEDOMETER</span>
+                  <span class="speed-num"><span id="live-bps-val">4.32</span> <small>BPS</small></span>
+                </div>
+                <div class="speed-bar-track">
+                  <div class="speed-bar-fill" id="live-bps-fill" style="width: 58%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testing instruction prompt -->
+            <div class="test-helper-prompt">
+              <span>⌨️ Press <kbd>W</kbd>, <kbd>A</kbd>, <kbd>S</kbd>, <kbd>D</kbd>, <kbd>Space</kbd>, or click Left/Right mouse to test trigger response.</span>
+            </div>
+          </div>
+
+          <!-- Visual Configuration Controls Sidebar -->
+          <div class="editor-controls-panel">
+            <h3 class="panel-heading">Visual Styling & Geometry</h3>
+
+            <!-- 1. Accent Color Glow Picker -->
+            <div class="control-box">
+              <label class="control-label">Neon Glow Accent Color:</label>
+              <div class="glow-palette-selector">
+                <div class="glow-dot cyan active" data-color="#00f3ff" onclick="setEditorAccent('#00f3ff')" title="Electric Cyan (#00f3ff)"></div>
+                <div class="glow-dot green" data-color="#00ff88" onclick="setEditorAccent('#00ff88')" title="Matrix Emerald (#00ff88)"></div>
+                <div class="glow-dot purple" data-color="#9d00ff" onclick="setEditorAccent('#9d00ff')" title="Cyberpunk Purple (#9d00ff)"></div>
+                <div class="glow-dot red" data-color="#e50914" onclick="setEditorAccent('#e50914')" title="Crimson Red (#e50914)"></div>
+                <div class="glow-dot yellow" data-color="#ffaa00" onclick="setEditorAccent('#ffaa00')" title="Amber Gold (#ffaa00)"></div>
+              </div>
+            </div>
+
+            <!-- 2. Key Opacity Slider -->
+            <div class="control-box">
+              <div class="slider-header">
+                <label class="control-label" for="slider-opacity">Key Opacity (Background):</label>
+                <span class="slider-val" id="val-opacity">85%</span>
+              </div>
+              <input type="range" id="slider-opacity" min="20" max="100" value="85" class="custom-slider">
+            </div>
+
+            <!-- 3. Key Border Radius Slider -->
+            <div class="control-box">
+              <div class="slider-header">
+                <label class="control-label" for="slider-radius">Border Radius (Rounding):</label>
+                <span class="slider-val" id="val-radius">8px</span>
+              </div>
+              <input type="range" id="slider-radius" min="2" max="24" value="8" class="custom-slider">
+            </div>
+
+            <!-- 4. Key Spacing Slider -->
+            <div class="control-box">
+              <div class="slider-header">
+                <label class="control-label" for="slider-spacing">Key Grid Spacing:</label>
+                <span class="slider-val" id="val-spacing">6px</span>
+              </div>
+              <input type="range" id="slider-spacing" min="2" max="16" value="6" class="custom-slider">
+            </div>
+
+            <!-- 5. Release Fade Delay -->
+            <div class="control-box">
+              <div class="slider-header">
+                <label class="control-label" for="slider-fade">Release Fade-Out Delay:</label>
+                <span class="slider-val" id="val-fade">180ms</span>
+              </div>
+              <input type="range" id="slider-fade" min="50" max="500" value="180" class="custom-slider">
+            </div>
+
+            <!-- Quick Action Buttons -->
+            <div class="editor-btn-row">
+              <button id="reset-editor-btn" class="secondary-btn">↺ Reset Layout</button>
+              <button id="apply-in-game-btn" class="primary-btn">⚡ Apply to Mod</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           TAB 3: MINECRAFT JAVA 1.21.1 & MOD MANAGER
+           =================================================================== -->
+      <section id="mod-manager" class="page">
+        <h2 id="txt-mod-title">Minecraft Java 1.21.1 & Fabric Mod Manager</h2>
+        
+        <div class="card glass-card">
+          <div class="card-lead">
+            <span class="badge combat">FABRIC 1.21.1</span>
+            <h3>Automated Remote Mod Manifest Synchronizer</h3>
+          </div>
+          <p id="txt-mod-sync-desc">The launcher verifies, downloads, and orchestrates verified server mods (Fabric API, Sodium 0.5.11+, and SimplePvP HUD) to <code>%appdata%/nmc_minecraft/mods</code> before starting.</p>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label id="lbl-mc-username">In-game Username / Tag:</label>
+              <input type="text" id="mc-mod-username" placeholder="Enter player handle (e.g. NMC_Shadow)">
+            </div>
+
+            <div class="form-group">
+              <label id="lbl-mc-ram">JVM Memory Allocation:</label>
+              <select id="mc-ram" class="custom-select">
+                <option value="2G">2 GB (Standard JVM)</option>
+                <option value="4G" selected>4 GB (Recommended for Modded Client)</option>
+                <option value="6G">6 GB (Esports Performance)</option>
+              </select>
+            </div>
+          </div>
+
+          <button id="sync-launch-btn" class="primary-btn shimmer-btn full-width">
+            ⚡ <span id="txt-sync-btn">SYNCHRONIZE MODS & LAUNCH (ធ្វើបច្ចុប្បន្នភាព និងលេង)</span>
+          </button>
+
+          <div id="sync-progress-bar-container" style="display:none; margin-top: 15px;">
+            <div class="progress-track"><div id="sync-progress-fill" class="progress-fill"></div></div>
+            <span id="sync-status-label" class="progress-label">Checking files...</span>
+          </div>
+        </div>
+
+        <div class="card glass-card">
+          <!-- Featured DYNASTORE Client Mod Card -->
+          <div class="core-mod-card" id="card-builtin-mod">
+            <div class="core-mod-left">
+              <div class="core-mod-icon mod-icon-dynastore">
+                <img src="assets/dynastore_logo.png" alt="DYNASTORE" class="core-mod-img-logo">
+              </div>
+              <div class="core-mod-info">
+                <div class="core-mod-title-row">
+                  <strong>DYNASTORE Client Mod</strong>
+                  <span class="core-badge badge-active" id="builtin-mod-badge">Active & Synced</span>
+                </div>
+                <div class="core-mod-sub"><code>SimplePvP-1.21.1-1.0.0.jar</code> • In-Game Reach, CPS, Keystrokes & Armor HUD</div>
+              </div>
+            </div>
+            <div class="core-mod-actions">
+              <button id="btn-reinject-client" class="primary-btn shimmer-btn" onclick="alert('DYNASTORE SimplePvP Client Mod re-injected successfully into .minecraft/mods!')" title="Re-copy the built-in mod into .minecraft/mods">⚡ Re-Inject Mod</button>
+            </div>
+          </div>
+
+          <h3 style="margin-top: 22px;">Active Mod Repository</h3>
+          <div id="dynamic-mods-list" class="mods-list-container">
+            <p class="loading-text">Loading remote mod manifest...</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           TAB 4: MINECRAFT BEDROCK EDITION (WINDOWS 10/11)
+           =================================================================== -->
+      <section id="bedrock" class="page">
+        <h2 id="txt-bedrock-title">Minecraft: Bedrock Edition (Windows 10/11)</h2>
+        
+        <div class="card glass-card">
+          <div class="card-lead">
+            <span class="badge movement">UWP DEEP LINK</span>
+            <h3 id="txt-bedrock-connect-header">Native Bedrock Server Connector</h3>
+          </div>
+          <p id="txt-bedrock-connect-desc">Directly connects and registers the NMC CITY BEDROCK server into your native Windows Minecraft Bedrock Client using external UWP protocol.</p>
+          
+          <div class="server-info-box">
+            <div class="info-item"><b>Server Name:</b> NMC CITY BEDROCK</div>
+            <div class="info-item"><b>Server IP:</b> bedrock.nmccityrp.com</div>
+            <div class="info-item"><b>Port:</b> 19132</div>
+            <div class="info-item"><b>Crossplay:</b> Windows 10/11, iOS, Android, Console</div>
+          </div>
+
+          <button id="bedrock-connect-btn" class="primary-btn shimmer-btn bedrock-btn full-width" style="margin-top: 15px;">
+            🎮 <span id="txt-bedrock-connect-btn">CONNECT BEDROCK SERVER (ភ្ជាប់ម៉ាស៊ីនបម្រើ)</span>
+          </button>
+        </div>
+
+        <div class="card glass-card">
+          <div class="card-lead">
+            <span class="badge analytics">PACK BRIDGE</span>
+            <h3 id="txt-bedrock-pack-header">Resource & Behavior Pack Installer Bridge</h3>
+          </div>
+          <p id="txt-bedrock-pack-desc">Installs custom NMC City Bedrock texture packs, PvP skins, and behavior add-ons (<code>.mcpack</code>, <code>.mcaddon</code>) with 1-click native association.</p>
+          
+          <button id="install-pack-btn" class="primary-btn shimmer-btn secondary-play full-width" style="margin-top: 10px;">
+            📁 <span id="txt-install-pack-btn">SELECT & INSTALL .MCPACK / .MCADDON</span>
+          </button>
+          <p id="pack-install-status" class="status-note"></p>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           TAB 5: TOURNAMENT PvP HUD & CLIENT CUSTOMIZATION
+           =================================================================== -->
+      <section id="minecraft-hud" class="page">
+        <div class="section-header-row">
+          <div>
+            <h2 id="txt-hud-title">Tournament PvP HUD & Combat Analytics</h2>
+            <p class="section-subtitle">Fabric 1.21.1 live in-game HUD modules. All settings sync instantly to <code>.minecraft/nmc_pvp_modules.json</code>.</p>
+          </div>
+          <div class="top-action-cluster">
+            <button class="secondary-btn" onclick="window.open('https://discord.gg/ZnHuvUqpn')">💬 PvP Discord</button>
+            <button id="save-hud-btn" class="primary-btn shimmer-btn">💾 Save & Sync</button>
+            <button id="reset-hud-btn" class="secondary-btn">↺ Reset Defaults</button>
+          </div>
+        </div>
+        
+        <div class="hud-top-banner">
+          <span id="txt-accent-desc">HUD Accent Glow Color: Choose the primary neon color for Keystrokes, Coordinates, and Reach text</span>
+          <div class="color-picker-group">
+            <div class="color-dot cyan active" data-color="#00f3ff" onclick="setAccentColor('#00f3ff')" title="Cyan Neon (#00f3ff)"></div>
+            <div class="color-dot green" data-color="#00ff88" onclick="setAccentColor('#00ff88')" title="Emerald Neon (#00ff88)"></div>
+            <div class="color-dot purple" data-color="#9d00ff" onclick="setAccentColor('#9d00ff')" title="Purple Neon (#9d00ff)"></div>
+            <div class="color-dot red" data-color="#e50914" onclick="setAccentColor('#e50914')" title="Crimson Red (#e50914)"></div>
+            <div class="color-dot yellow" data-color="#ffaa00" onclick="setAccentColor('#ffaa00')" title="Gold Neon (#ffaa00)"></div>
+          </div>
+        </div>
+
+        <div class="hud-grid">
+          <!-- 1. Reach Display -->
+          <div class="hud-card">
+            <div class="hud-header">
+              <span class="badge combat">COMBAT</span>
+              <label class="switch"><input type="checkbox" id="hud-toggle-reach" checked><span class="slider"></span></label>
+            </div>
+            <h3>Reach Display</h3>
+            <p>Intercepts entity attacks and calculates Euclidean reach distance with smooth fade-out animation.</p>
+            <div class="hud-preview">[2.87 Blocks]</div>
+          </div>
+
+          <!-- 2. Keystrokes & Speedometer -->
+          <div class="hud-card">
+            <div class="hud-header">
+              <span class="badge movement">MOVEMENT</span>
+              <label class="switch"><input type="checkbox" id="hud-toggle-keystrokes" checked><span class="slider"></span></label>
+            </div>
+            <h3>Keystrokes & Speedometer (BPS)</h3>
+            <p>Displays WASD keys, LMB/RMB with CPS trackers, Space bar, and real-time Blocks-Per-Second velocity.</p>
+            <div class="hud-preview">[W] [A] [S] [D] LMB: 14 | RMB: 9 • 4.32 BPS</div>
+          </div>
+
+          <!-- 3. Target Health Indicator -->
+          <div class="hud-card">
+            <div class="hud-header">
+              <span class="badge combat">COMBAT</span>
+              <label class="switch"><input type="checkbox" id="hud-toggle-target-health" checked><span class="slider"></span></label>
+            </div>
+            <h3>Target Health Indicator</h3>
+            <p>Renders target opponent's username, health in hearts, and a dynamic color-coded HP bar.</p>
+            <div class="hud-preview">EnemyTarget 10 ❤️ [████████]</div>
+          </div>
+
+          <!-- 4. Ping & FPS Counter -->
+          <div class="hud-card">
+            <div class="hud-header">
+              <span class="badge analytics">ANALYTICS</span>
+              <label class="switch"><input type="checkbox" id="hud-toggle-fps" checked><span class="slider"></span></label>
+            </div>
+            <h3>Ping & FPS Counter</h3>
+            <p>Minimalist top-right corner pill showing real-time client frame rate and server latency (ms).</p>
+            <div class="hud-preview">240 FPS | 38 ms</div>
+          </div>
+
+          <!-- 5. Armor & Weapon Durability Status -->
+          <div class="hud-card">
+            <div class="hud-header">
+              <span class="badge equipment">EQUIPMENT</span>
+              <label class="switch"><input type="checkbox" id="hud-toggle-durability" checked><span class="slider"></span></label>
+            </div>
+            <h3>Armor & Weapon Durability Status</h3>
+            <p>Renders equipped Helmet, Chestplate, Leggings, Boots, and held tool with exact numerical durability.</p>
+            <div class="hud-preview">🛡️ 1562 • 👕 364 • 👖 528 • 🥾 495 • ⚔️ 429</div>
+          </div>
+
+          <!-- 6. Coordinates & Cardinal Direction -->
+          <div class="hud-card">
+            <div class="hud-header">
+              <span class="badge navigation">NAVIGATION</span>
+              <label class="switch"><input type="checkbox" id="hud-toggle-coords" checked><span class="slider"></span></label>
+            </div>
+            <h3>Coordinates & Cardinal Direction</h3>
+            <p>Displays exact XYZ player world coordinates and current facing compass cardinal direction (N, S, E, W).</p>
+            <div class="hud-preview">(-55, 32, -40) NORTH</div>
+          </div>
+
+          <!-- 7. Crosshair CPS Combat Analytics -->
+          <div class="hud-card">
+            <div class="hud-header">
+              <span class="badge combat">COMBAT</span>
+              <label class="switch"><input type="checkbox" id="hud-toggle-crosshair-cps" checked><span class="slider"></span></label>
+            </div>
+            <h3>Crosshair CPS Combat Analytics</h3>
+            <p>Displays instantaneous Left and Right click speeds directly centered near your crosshair.</p>
+            <div class="hud-preview">+ [ 12 | 8 CPS ]</div>
+          </div>
+
+          <!-- 8. Player Nametag & Rank Tag -->
+          <div class="hud-card">
+            <div class="hud-header">
+              <span class="badge equipment">CUSTOMIZATION</span>
+              <span class="badge combat">IN-GAME</span>
+            </div>
+            <h3>Player Nametag & Rank Tag</h3>
+            <p>Configure custom prefix tag (e.g. [DEV], [NMC-PRO], [VIP]) and glow color in chat and HUD.</p>
+            <input type="text" id="hud-custom-tag-input" value="[NMC-PRO]" class="hud-tag-input">
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           TAB 6: ANNOUNCEMENTS & CITY NEWS
+           =================================================================== -->
+      <section id="news" class="page">
+        <h2 id="txt-news-title">City News & Announcements</h2>
+        <div id="news-container" class="news-list">
+          <p class="loading-text">Loading latest announcements...</p>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           TAB 7: USER PROFILE & ESPORTS IDENTITY
+           =================================================================== -->
+      <section id="profile" class="page">
+        <h2 id="txt-profile-title">Esports Identity & Account Profile</h2>
+        
+        <div class="card glass-card">
+          <p id="user-info" class="user-greeting">Please Login or Register to synchronize your stats</p>
+          <div id="auth-alert-box" class="alert-box" style="display:none;"></div>
+
+          <div id="auth-forms-wrapper">
+            <!-- Login Form -->
+            <div id="login-form-box">
+              <h3 id="txt-login-header">ចូលគណនី (Login)</h3>
+              <div class="form-group">
+                <label id="lbl-login-email">Email Address:</label>
+                <input type="email" id="login-email" placeholder="citizen@nmccityrp.com">
+              </div>
+              <div class="form-group">
+                <label id="lbl-login-pass">Password:</label>
+                <input type="password" id="login-password" placeholder="••••••••">
+              </div>
+              <button id="login-btn" class="primary-btn shimmer-btn full-width" style="margin-top: 15px;">
+                <span id="txt-btn-login">ចូលគណនី (LOGIN)</span>
+              </button>
+              <p class="switch-text">
+                <span id="txt-no-account">មិនទាន់មានគណនី?</span> 
+                <span onclick="toggleAuthMode('register')" class="link-span" id="txt-link-register">ចុះឈ្មោះ (Sign Up)</span>
+              </p>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-form-box" style="display: none;">
+              <h3 id="txt-reg-header">បង្កើតគណនីថ្មី (Register)</h3>
+              <div class="form-group">
+                <label id="lbl-reg-email">Email Address:</label>
+                <input type="email" id="reg-email" placeholder="newcitizen@nmccityrp.com">
+              </div>
+              <div class="form-group">
+                <label id="lbl-reg-user">Username:</label>
+                <input type="text" id="reg-username" placeholder="NMC_Player">
+              </div>
+              <div class="form-group">
+                <label id="lbl-reg-pass">Password (Min 6 chars):</label>
+                <input type="password" id="reg-password" placeholder="••••••••">
+              </div>
+              <button id="register-btn" class="primary-btn shimmer-btn full-width" style="margin-top: 15px;">
+                <span id="txt-btn-register">ចុះឈ្មោះ (SIGN UP)</span>
+              </button>
+              <p class="switch-text">
+                <span id="txt-have-account">មានគណនីរួចហើយ?</span> 
+                <span onclick="toggleAuthMode('login')" class="link-span" id="txt-link-login">ចូលគណនី (Login)</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Authenticated User Dashboard -->
+          <div id="user-dashboard" style="display: none;">
+            <div class="dashboard-details">
+              <div class="profile-avatar-row">
+                <img id="dashboard-avatar" src="https://minotar.net/avatar/MHF_Steve/64" alt="Avatar" class="profile-avatar">
+                <div class="profile-identity">
+                  <h3 id="dashboard-username">Citizen</h3>
+                  <span class="role-badge" id="dashboard-role">ESPORTS VIP</span>
+                </div>
+              </div>
+              <div class="profile-info-grid">
+                <div><b>Email:</b> <span id="dashboard-email"></span></div>
+                <div><b>In-Game Name:</b> <span id="dashboard-ign"></span></div>
+                <div><b>Account ID:</b> <span id="dashboard-id"></span></div>
+                <div><b>Telemetry Status:</b> <span style="color:#00ff88;">✓ Synchronized</span></div>
+              </div>
+            </div>
+            <button id="logout-btn" class="primary-btn logout-btn full-width" style="margin-top: 20px;">
+              <span id="txt-btn-logout">ចាកចេញ (LOGOUT)</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           TAB 8: COMMUNITY MARKETPLACE (Textures, Crosshairs, Cloaks)
+           =================================================================== -->
+      <section id="marketplace" class="page">
+        <div class="hero-header">
+          <div class="hero-left">
+            <div class="pill-badge emerald">
+              <span class="sparkle">🛒</span> OFFICIAL COMMUNITY STORE
+            </div>
+            <h2>Esports Marketplace & Cosmetic Vault</h2>
+            <p class="hero-desc">Download verified tournament texture packs, custom animated cloaks, and hit-sound presets tested for 1.21.1 Fabric.</p>
+          </div>
+        </div>
+
+        <div class="market-grid">
+          <div class="market-card glass-card">
+            <div class="market-badge">FEATURED</div>
+            <div class="market-icon">⚔️</div>
+            <h3>Dynastore 16x PvP Fault</h3>
+            <p>High-FPS short swords, clear low-fire, and crystal-clear ore outlines optimized for low-latency combat.</p>
+            <div class="market-meta">
+              <span>Resolution: 16x</span>
+              <span class="metric-pill emerald">FREE</span>
+            </div>
+            <button class="primary-btn shimmer-btn full-width" onclick="alert('Pack installed to resourcepacks folder!')">1-CLICK EQUIP</button>
+          </div>
+
+          <div class="market-card glass-card">
+            <div class="market-badge gold">EXCLUSIVE</div>
+            <div class="market-icon">⚡</div>
+            <h3>Neon Pulse Animated Cloak</h3>
+            <p>Dynamic cyan-and-purple wave cape synced to in-game movement velocity and sprint speed.</p>
+            <div class="market-meta">
+              <span>Format: OptiFine / Fabric</span>
+              <span class="metric-pill gold">UNLOCKED</span>
+            </div>
+            <button class="primary-btn shimmer-btn full-width" onclick="alert('Animated Cloak enabled on active profile!')">ACTIVATE CLOAK</button>
+          </div>
+
+          <div class="market-card glass-card">
+            <div class="market-icon">🎯</div>
+            <h3>CS2 Dynamic Crosshair Pack</h3>
+            <p>Pro tournament crosshairs including dynamic bloom, static dot, and high-visibility neon green reticles.</p>
+            <div class="market-meta">
+              <span>HUD Mod: SimplePvP</span>
+              <span class="metric-pill emerald">FREE</span>
+            </div>
+            <button class="primary-btn shimmer-btn full-width" onclick="alert('Crosshair loaded into SimplePvP!')">APPLY RETICLE</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           TAB 9: INSTALLATIONS & RUNTIME ENGINES
+           =================================================================== -->
+      <section id="installations" class="page">
+        <div class="hero-header">
+          <div class="hero-left">
+            <div class="pill-badge cyan">
+              <span class="sparkle">⚙️</span> RUNTIME PROFILES
+            </div>
+            <h2>Game Engines & Active Installations</h2>
+            <p class="hero-desc">Manage installed game directories, Java virtual machine flags, and memory allocations.</p>
+          </div>
+        </div>
+
+        <div class="installations-list">
+          <!-- Installation 1: Fabric 1.21.1 -->
+          <div class="install-card glass-card">
+            <div class="install-icon mc-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5L4.5 9.75 3 10.5l9 4.5 9-4.5-1.5-.75L12 13.5zm0 5L4.5 14.75 3 15.5l9 4.5 9-4.5-1.5-.75L12 18.5z"/></svg>
+            </div>
+            <div class="install-info">
+              <div class="install-title-row">
+                <h3>Fabric 1.21.1 (DaraClient PvP Engine)</h3>
+                <span class="metric-pill emerald">ACTIVE DEFAULT</span>
+              </div>
+              <p class="install-path">%APPDATA%\.minecraft (Fabric Loader 0.16.10, SimplePvP Mod 1.0.0, 12 mods loaded)</p>
+              <div class="install-specs">
+                <span>JVM: Adoptium JDK 21 x64</span>
+                <span>•</span>
+                <span>RAM: 4096 MB Allocated</span>
+                <span>•</span>
+                <span>ZGC Enabled</span>
+              </div>
+            </div>
+            <div class="install-actions">
+              <button class="primary-btn" onclick="launchModdedMinecraft()">BOOT</button>
+              <button class="icon-action-btn" title="Open Folder" onclick="openGameFolder()">📂</button>
+            </div>
+          </div>
+
+          <!-- Installation 2: FiveM -->
+          <div class="install-card glass-card">
+            <div class="install-icon fivem-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+            </div>
+            <div class="install-info">
+              <div class="install-title-row">
+                <h3>NMC City RP FiveM Client</h3>
+                <span class="metric-pill cyan">ONLINE</span>
+              </div>
+              <p class="install-path">play.nmccityrp.com:30120 (Server Artifacts v3095)</p>
+              <div class="install-specs">
+                <span>DirectX 11</span>
+                <span>•</span>
+                <span>Custom Voice Enabled</span>
+              </div>
+            </div>
+            <div class="install-actions">
+              <button class="primary-btn fivem-btn" onclick="launchFiveM()">PLAY</button>
+            </div>
+          </div>
+
+          <!-- Installation 3: Minecraft Bedrock UWP -->
+          <div class="install-card glass-card">
+            <div class="install-icon bedrock-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            </div>
+            <div class="install-info">
+              <div class="install-title-row">
+                <h3>Minecraft Bedrock (Windows 10/11 UWP)</h3>
+                <span class="metric-pill gold">STANDALONE</span>
+              </div>
+              <p class="install-path">WindowsApp / Package Microsoft.MinecraftUWP</p>
+            </div>
+            <div class="install-actions">
+              <button class="primary-btn bedrock-btn" onclick="launchBedrockUWP()">LAUNCH</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           TAB 10: SKINS & WARDROBE
+           =================================================================== -->
+      <section id="skins" class="page">
+        <div class="hero-header">
+          <div class="hero-left">
+            <div class="pill-badge purple">
+              <span class="sparkle">👘</span> WARDROBE
+            </div>
+            <h2>Skins & Cosmetic Customizer</h2>
+            <p class="hero-desc">Equip custom Minecraft skins, 3D capes, and player model arm geometries.</p>
+          </div>
+        </div>
+
+        <div class="skin-stage-grid">
+          <div class="skin-preview-card glass-card">
+            <div class="skin-viewport-box">
+              <img src="https://minotar.net/body/Dara111111/200.png" alt="Skin Preview" class="skin-full-preview" id="skin-preview-img" onerror="this.src='https://minotar.net/body/MHF_Steve/200.png'">
+            </div>
+            <div class="skin-model-type">
+              <button class="toggle-model-btn active" id="btn-model-classic">CLASSIC (4PX)</button>
+              <button class="toggle-model-btn" id="btn-model-slim">SLIM (3PX)</button>
+            </div>
+          </div>
+
+          <div class="skin-controls-card glass-card">
+            <h3>Player Profile Identity</h3>
+            <div class="form-group" style="margin-top: 14px;">
+              <label>Minecraft Username:</label>
+              <input type="text" id="skin-username-input" value="Dara111111" class="text-input">
+            </div>
+            <div class="skin-action-buttons" style="margin-top: 16px; display: flex; gap: 10px;">
+              <button class="primary-btn" onclick="updateSkinUsername()">SYNC SKIN</button>
+              <button class="secondary-btn" onclick="alert('Upload custom PNG skin supported in next release')">UPLOAD .PNG</button>
+            </div>
+
+            <h4 style="margin-top: 24px; font-size: 13px; color: var(--text-muted); text-transform: uppercase;">Active Capes & Cloaks</h4>
+            <div class="cape-picker-row" style="display: flex; gap: 12px; margin-top: 10px;">
+              <div class="cape-pill active" onclick="selectCape(this, 'Dynastore Esport')">
+                <span>Dynastore 2026</span>
+              </div>
+              <div class="cape-pill" onclick="selectCape(this, 'Founder Migrator')">
+                <span>Migrator Cape</span>
+              </div>
+              <div class="cape-pill" onclick="selectCape(this, 'None')">
+                <span>None</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

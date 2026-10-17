@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "nmcclientmod",
+  "version": "1.0.0",
+  "name": "NMC PvP Client Mod",
+  "description": "In-game CPS, Keystrokes, Armor Durability, and Reach Display HUD",
+  "authors": [
+    "NMC Team"
+  ],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.nmcclient.NMCClientMod"
+    ]
+  },
+  "mixins": [
+    "nmcclientmod.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "~1.21.1",
+    "java": ">=21"
+  }
+}

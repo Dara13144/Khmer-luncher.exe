@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NMCLUNCHER</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header Bar -->
+  <header class="launcher-header">
+    <div class="edition-title">
+      <span class="bolt">⚡</span> NMCLUNCHER.EXE <span class="badge-edition">PvP & Marketplace</span>
+    </div>
+    <div class="window-controls">
+      <button id="btn-min" class="win-btn">−</button>
+      <button id="btn-close" class="win-btn">×</button>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="nav-bar">
+    <div class="nav-links">
+      <button class="nav-tab active" data-tab="play">Play</button>
+      <button class="nav-tab" data-tab="store">Account Store 🛒</button>
+      <button class="nav-tab" data-tab="modrinth">Modrinth Store ⚡</button>
+      <button class="nav-tab" data-tab="mods">Mods Manager</button>
+      <button class="nav-tab nav-btn" data-tab="mod-manager" data-target="mod-manager" id="nav-mods">Minecraft & Mods (គ្រប់គ្រងម៉ូដ)</button>
+      <button class="nav-tab" data-tab="hud">PvP HUD Editor 🎛️</button>
+      <button class="nav-tab" data-tab="accounts">Accounts Manager 👤</button>
+    </div>
+
+    <!-- Active Profile Widget -->
+    <div class="account-profile-nav" id="top-profile-card">
+      <img id="nav-avatar" src="https://minotar.net/avatar/MHF_Steve/32" alt="Skin">
+      <div class="account-meta">
+        <span id="nav-player-name">គ្មានគណនី</span>
+        <span id="nav-account-type" class="account-type-badge">None</span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="viewport">
+    <!-- 1. Play Tab -->
+    <section id="tab-play" class="tab-content active">
+      <!-- Dynamic Background Container -->
+      <div class="hero-artwork" id="hero-artwork">
+        <!-- Dimmer Overlay Layer -->
+        <div class="bg-dim-overlay" id="bg-dim-overlay"></div>
+
+        <div class="nmc-brand-center">
+          <h1 class="nmc-title">NMC<span>LAUNCHER</span></h1>
+          <div class="nmc-sub">MINECRAFT 1.21.1 • COMBAT & REACH HUD ACTIVE</div>
+        </div>
+
+        <div class="hero-utility-actions">
+          <!-- ប៊ូតុងផ្លាស់ប្ដូរ Wallpaper លើ Screen ផ្ទាល់ -->
+          <button id="btn-open-bg-modal" class="btn-change-wallpaper">
+            🖼️ Change Background
+          </button>
+
+          <div class="promo-banner">
+            <span>Official NMC Network & Automated KHQR Marketplace</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="launch-footer">
+        <div class="footer-left-group">
+          <!-- Animated System Menu Trigger Button -->
+          <button id="btn-system-menu" class="btn-system-menu" title="System Settings & Options (ESC)">
+            <span class="sys-gear-icon">⚙️</span>
+            <span class="sys-btn-label">MENU</span>
+          </button>
+
+          <!-- Version Selector -->
+          <div class="version-selector-container">
+            <div class="version-dropdown-box" id="dropdown-toggle">
+              <div class="version-avatar-badge"><span class="pixel-face-icon">😵</span></div>
+              <div class="version-meta">
+                <span class="v-title" id="selected-title">Fabric 1.21.1</span>
+                <span class="v-number" id="selected-ver">Custom Mods Active</span>
+              </div>
+              <span class="v-arrow">▼</span>
+            </div>
+
+            <div class="version-menu" id="version-menu">
+              <div class="v-option selected" data-title="Fabric 1.21.1" data-desc="PvP Profile" data-ver="1.21.1">
+                <div class="version-avatar-badge"><span class="pixel-face-icon">😵</span></div>
+                <div class="v-option-text">
+                  <div class="v-opt-title">Fabric 1.21.1 <span class="tag-badge modded">Modded</span></div>
+                  <div class="v-opt-sub">PvP Profile</div>
+                </div>
+              </div>
+              <div class="v-option" data-title="Latest release 1.21.1" data-desc="(Vanilla)" data-ver="1.21.1">
+                <div class="version-avatar-badge"><span class="pixel-face-icon">😵</span></div>
+                <div class="v-option-text">
+                  <div class="v-opt-title">Latest release 1.21.1</div>
+                  <div class="v-opt-sub">(Vanilla)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-minecraft-play" id="btn-play">PLAY</button>
+        <div class="account-tag"><span id="footer-username">Login Required</span></div>
+      </div>
+    </section>
+
+    <!-- 2. Account Store Tab -->
+    <section id="tab-store" class="tab-content">
+      <div class="store-layout">
+        <div class="store-header">
+          <h2>🛒 In-Launcher Account Marketplace</h2>
+          <p>ទិញគណនី Minecraft ស្របច្បាប់រួច Add ចូល Launcher លេងបានភ្លាមៗដោយស្វ័យប្រវត្តិ!</p>
+        </div>
+        <div class="account-store-grid" id="store-grid"></div>
+      </div>
+    </section>
+
+    <!-- 3. Modrinth Store Tab -->
+    <section id="tab-modrinth" class="tab-content">
+      <div class="store-layout">
+        <div class="store-search-bar">
+          <input type="text" id="modrinth-search" placeholder="Search Sodium, Iris, AppleSkin from Modrinth API...">
+          <div class="type-toggles">
+            <button class="type-btn active" data-type="mod">Mods (Fabric 1.21.1)</button>
+            <button class="type-btn" data-type="resourcepack">Resource Packs</button>
+          </div>
+          <button id="btn-modrinth-query" class="btn-cyan">Search</button>
+        </div>
+        <div class="modrinth-grid" id="modrinth-grid"></div>
+      </div>
+    </section>
+
+    <!-- 4. Local Mods Manager -->
+    <section id="tab-mods" class="tab-content">
+      <div class="store-layout">
+        <div class="mods-header-row">
+          <h2>Installed Modifications (.minecraft/mods)</h2>
+          <button id="btn-open-mods-folder" class="btn-secondary">📂 Open Mods Folder</button>
+        </div>
+        <div class="mods-table-wrapper">
+          <table class="mods-table">
+            <thead>
+              <tr>
+                <th style="width: 70px;">Status</th>
+                <th>Mod Name</th>
+                <th style="width: 120px;">Size</th>
+                <th style="width: 100px; text-align: center;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="local-mods-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Minecraft PvP Client & HUD Customization -->
+    <section id="tab-hud" class="tab-content">
+      <div class="store-layout">
+        <div class="mods-header-row">
+          <h2 id="txt-hud-title">Minecraft PvP Client & HUD Customization</h2>
+          <div style="display: flex; gap: 10px;">
+            <button id="btn-save-hud" class="btn-cyan">Save to Minecraft 💾</button>
+            <button id="btn-reset-hud" class="btn-secondary">Reset Defaults ℹ️</button>
+          </div>
+        </div>
+
+        <!-- HUD Accent Glow Color Selector -->
+        <div class="hud-top-banner">
+          <span>HUD Accent Glow Color: Choose the primary neon color for Keystrokes, Coordinates, and Reach text</span>
+          <div class="color-picker-group">
+            <div class="color-dot cyan active" data-color="#00f3ff" title="Cyan Neon"></div>
+            <div class="color-dot green" data-color="#00ff88" title="Green Neon"></div>
+            <div class="color-dot purple" data-color="#9d00ff" title="Purple Neon"></div>
+            <div class="color-dot red" data-color="#e50914" title="Red Neon"></div>
+            <div class="color-dot yellow" data-color="#ffcc00" title="Yellow Neon"></div>
+            <div class="color-dot blue" data-color="#0055ff" title="Blue Neon"></div>
+          </div>
+        </div>
+
+        <!-- HUD Grid Modules -->
+        <div class="hud-grid">
+          <!-- Reach Display -->
+          <div class="hud-card">
+            <div class="hud-header">
+              <span class="badge combat">COMBAT</span>
+              <label class="switch"><input type="checkbox" id="toggle-reach" checked><span class="slider"></span></label>
+            </div>
+            <h3>Reach Display</h3>
+            <p>Intercepts entity attacks and calculates Euclidean reach distance with smooth fade-out animation.</p>
+            <div class="hud-preview">[2.87 Blocks]</div>
+          </div>
+
+          <!-- Target Health Indicator -->
+          <div class="hud-card">
+            <div class="hud-header">
+              <span class="badge combat">COMBAT</span>
+              <label class="switch"><input type="checkbox" id="toggle-target-hp" checked><span class="slider"></span></label>
+            </div>
+            <h3>Target Health Indicator</h3>
+            <p>Renders target opponent's username, health in hearts, and a dynamic color-coded HP bar.</p>
+            <div class="hud-preview">PlayerName 10 ❤️ [████████]</div>
+          </div>
+
+          <!-- Ping & FPS Counter -->
+          <div class="hud-card">
+            <div class="hud-header">
+              <span class="badge analytics">ANALYTICS</span>
+              <label class="switch"><input type="checkbox" id="toggle-fps-ping" checked><span class="slider"></span></label>
+            </div>
+            <h3>Ping & FPS Counter</h3>
+            <p>Minimalist top-right corner pill showing real-time client frame rate and server latency (ms).</p>
+            <div class="hud-preview">240 FPS | 38 ms</div>
+          </div>
+
+          <!-- Keystrokes & Speedometer -->
+          <div class="hud-card">
+            <div class="hud-header">
+              <span class="badge movement">MOVEMENT</span>
+              <label class="switch"><input type="checkbox" id="toggle-keystrokes" checked><span class="slider"></span></label>
+            </div>
+            <h3>Keystrokes & Speedometer (BPS)</h3>
+            <p>Displays WASD keys, LMB/RMB with CPS trackers, Space bar, and real-time Blocks-Per-Second velocity.</p>
+            <div class="hud-preview">[W] [A] [S] [D] LMB: 14 | RMB: 9 • 4.32 BPS</div>
+          </div>
+
+          <!-- Armor & Weapon Durability -->
+          <div class="hud-card">
+            <div class="hud-header">
+              <span class="badge equipment">EQUIPMENT</span>
+              <label class="switch"><input type="checkbox" id="toggle-durability" checked><span class="slider"></span></label>
+            </div>
+            <h3>Armor & Weapon Durability Status</h3>
+            <p>Renders equipped Helmet, Chestplate, Leggings, Boots, and held tool with exact numerical durability.</p>
+            <div class="hud-preview">🛡️ 1562 • 👕 364 • 👖 528 • 🥾 495 • ⚔️ 429</div>
+          </div>
+
+          <!-- Coordinates & Cardinal Direction -->
+          <div class="hud-card">
+            <div class="hud-header">
+              <span class="badge navigation">NAVIGATION</span>
+              <label class="switch"><input type="checkbox" id="toggle-coords" checked><span class="slider"></span></label>
+            </div>
+            <h3>Coordinates & Cardinal Direction</h3>
+            <p>Displays exact XYZ player coordinates and current facing compass cardinal direction (N, S, E, W).</p>
+            <div class="hud-preview">(-55, 32, -40) N</div>
+          </div>
+
+          <!-- Crosshair CPS Combat Analytics -->
+          <div class="hud-card">
+            <div class="hud-header">
+              <span class="badge combat">COMBAT</span>
+              <label class="switch"><input type="checkbox" id="toggle-crosshair-cps" checked><span class="slider"></span></label>
+            </div>
+            <h3>Crosshair CPS Combat Analytics</h3>
+            <p>Displays instantaneous Left and Right click speeds directly centered near your crosshair.</p>
+            <div class="hud-preview">12 | 8 CPS</div>
+          </div>
+
+          <!-- Player Nametag & Rank Tag -->
+          <div class="hud-card">
+            <div class="hud-header">
+              <span class="badge customization">CUSTOMIZATION</span>
+            </div>
+            <h3>Player Nametag & Rank Tag</h3>
+            <p>Configure custom prefix tag (e.g. [DEV], [NMC-PRO], [VIP]) and glow color in chat and HUD.</p>
+            <div class="hud-config-row">
+              <input type="text" id="custom-rank-tag" value="[NMC-PRO]" placeholder="[RANK]">
+              <div class="color-preview-box" id="tag-color-preview"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Minecraft 1.21.1 & Mod Manager -->
+    <section id="tab-mod-manager" class="tab-content page">
+      <div class="store-layout" id="mod-manager">
+        <div class="mods-header-row">
+          <h2 id="txt-mod-title">NMC Minecraft 1.21.1 & Mod Manager</h2>
+        </div>
+
+        <div class="hud-grid" style="grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));">
+          <!-- Game Launch Configuration Card -->
+          <div class="card hud-card">
+            <h3>Game Launch Configuration</h3>
+            <p>Select your RAM allocation and launch Minecraft with all required server mods.</p>
+            
+            <div style="margin: 15px 0;">
+              <label style="display:block; margin-bottom: 6px; font-size: 13px; color: #94a3b8;">Minecraft Username:</label>
+              <input type="text" id="mc-mod-username" placeholder="Enter your in-game name" style="width:100%; padding:10px; background:#090c12; border:1px solid #334155; color:#fff; border-radius:4px; font-size:13px; outline:none;">
+            </div>
+
+            <div style="margin: 15px 0;">
+              <label style="display:block; margin-bottom: 6px; font-size: 13px; color: #94a3b8;">RAM Allocation:</label>
+              <select id="mc-ram" style="width:100%; padding:10px; background:#090c12; border:1px solid #334155; color:#fff; border-radius:4px; font-size:13px; outline:none; cursor:pointer;">
+                <option value="2G">2 GB (Standard)</option>
+                <option value="4G" selected>4 GB (Recommended for Mods)</option>
+                <option value="6G">6 GB (High Performance)</option>
+              </select>
+            </div>
+
+            <div style="display:flex; gap:10px; margin-top:10px;">
+              <button id="sync-launch-btn" class="primary-btn btn-cyan" style="flex:1; height:46px; font-size:13px;">SYNCHRONIZE MODS & LAUNCH (ធ្វើបច្ចុប្បន្នភាព និងលេង)</button>
+              <button id="launch-modded-mc-btn" class="primary-btn btn-minecraft-play" style="flex:1; height:46px; font-size:13px;">LAUNCH 1.21.1 (លេងហ្គេម)</button>
+            </div>
+          </div>
+
+          <!-- Mandatory Server Mods Status Card -->
+          <div class="card hud-card">
+            <h3>Active Mod Repository & Synchronization</h3>
+            <p>The launcher automatically checks, downloads, and updates required server mods (Fabric, Sodium, PvP HUD) before starting.</p>
+            <div id="dynamic-mods-list" style="display:flex; flex-direction:column; gap:8px; margin-top:15px; font-size:13px;">
+              <p style="color: var(--text-muted);">Loading server mods manifest...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Accounts Manager -->
+    <section id="tab-accounts" class="tab-content">
+      <div class="store-layout">
+        <div class="mods-header-row">
+          <h2>👤 Multi-Accounts Profile Switcher</h2>
+          <div>
+            <button id="btn-add-ms" class="btn-cyan">Login Microsoft ⚡</button>
+            <button id="btn-add-offline" class="btn-secondary">+ Add Offline Account</button>
+          </div>
+        </div>
+        <div class="accounts-grid" id="accounts-cards-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Animated In-Game Style System Menu Drop-Up / Modal -->
+  <div class="system-menu-backdrop" id="system-menu-backdrop">
+    <div class="system-menu-dialog" id="system-menu-dialog">
+      <div class="system-menu-header">
+        <div class="sys-title-group">
+          <span class="bolt">⚡</span>
+          <h3>SYSTEM OPTIONS</h3>
+        </div>
+        <button class="sys-btn-close" id="btn-sys-menu-close">✕</button>
+      </div>
+
+      <div class="system-menu-buttons">
+        <button class="sys-action-btn" id="sys-btn-open-mc">
+          <span class="sys-icon">📁</span>
+          <div class="sys-info">
+            <strong>Open .minecraft Directory</strong>
+            <small>Direct access to configs, crash-reports & logs</small>
+          </div>
+        </button>
+
+        <button class="sys-action-btn" id="sys-btn-clear-cache">
+          <span class="sys-icon">🧹</span>
+          <div class="sys-info">
+            <strong>Clean Client Cache</strong>
+            <small>Wipe temp launcher logs and webview storage</small>
+          </div>
+        </button>
+
+        <button class="sys-action-btn" id="sys-btn-toggle-sound">
+          <span class="sys-icon" id="sys-sound-icon">🔊</span>
+          <div class="sys-info">
+            <strong>Launcher UI Sound Effects</strong>
+            <small id="sys-sound-status">Status: Enabled</small>
+          </div>
+        </button>
+
+        <button class="sys-action-btn" id="sys-btn-check-updates">
+          <span class="sys-icon">🔄</span>
+          <div class="sys-info">
+            <strong>Check for Updates</strong>
+            <small>Verify latest NMC Engine build on GitHub</small>
+          </div>
+        </button>
+
+        <button class="sys-action-btn danger" id="sys-btn-quit">
+          <span class="sys-icon">🚪</span>
+          <div class="sys-info">
+            <strong>Exit NMCLUNCHER</strong>
+            <small>Close all background launcher processes</small>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ------------------------------------------------------------- -->
+  <!-- BACKGROUND CUSTOMIZER MODAL DIALOG                           -->
+  <!-- ------------------------------------------------------------- -->
+  <div class="modal-backdrop" id="bg-customizer-modal">
+    <div class="modal-card bg-modal-card">
+      <div class="modal-header">
+        <h3>🖼️ Background & Theme Customizer</h3>
+        <button id="btn-close-bg-modal" class="btn-close-modal">×</button>
+      </div>
+
+      <div class="bg-modal-body">
+        <!-- Section: Custom Upload -->
+        <div class="bg-section">
+          <label class="section-title">Upload Custom Wallpaper:</label>
+          <button id="btn-browse-bg" class="btn-upload-file">
+            📁 ជ្រើសរើសរូបភាពពីម៉ាស៊ីន (PNG, JPG, WEBP)
+          </button>
+        </div>
+
+        <!-- Section: Presets -->
+        <div class="bg-section">
+          <label class="section-title">Or Choose Preset Wallpapers:</label>
+          <div class="preset-wallpapers-grid">
+            <div class="preset-item active" data-url="https://launchercontent.mojang.com/v2/backgrounds/1.21.1.jpg">
+              <img src="https://launchercontent.mojang.com/v2/backgrounds/1.21.1.jpg" alt="1.21.1">
+              <span>Tricky Trials</span>
+            </div>
+            <div class="preset-item" data-url="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80">
+              <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=300&q=80" alt="Cyberpunk">
+              <span>Cyber Gaming</span>
+            </div>
+            <div class="preset-item" data-url="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80">
+              <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80" alt="Neon">
+              <span>Neon Lights</span>
+            </div>
+            <div class="preset-item" data-url="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=80">
+              <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=300&q=80" alt="Fantasy">
+              <span>Deep Nether</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section: Visual Options -->
+        <div class="bg-section">
+          <label class="section-title">Visual Adjustments:</label>
+          <div class="bg-controls-grid">
+            <div class="control-row">
+              <span>Ken-Burns Zoom Animation:</span>
+              <label class="switch">
+                <input type="checkbox" id="toggle-ken-burns" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="control-row">
+              <span>Dark Dimmer Overlay:</span>
+              <input type="range" id="range-bg-dim" min="0" max="0.8" step="0.05" value="0.4">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="btn-save-bg" class="btn-cyan" style="width: 100%;">Save & Apply Wallpaper ⚡</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Instant KHQR Purchase Modal -->
+  <div class="modal-backdrop" id="checkout-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>⚡ Scan to Purchase & Instant Auto-Import</h3>
+        <button id="btn-close-checkout" class="btn-close-modal">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="checkout-qr-box">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=BAKONG_KHQR_NMC_MARKETPLACE" alt="QR Code">
+        </div>
+        <div class="checkout-details">
+          <strong id="checkout-acc-name">ShadowSlayer_KH</strong>
+          <span id="checkout-acc-price" class="price-cyan">50,000៛ / $12.50</span>
+          <p>Scan with Bakong KHQR / ABA PayWay to verify and auto-import instantly.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-simulate-paid" class="btn-cyan" style="width: 100%;">Verify & Auto-Inject Account ⚡</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Launch Status Overlay -->
+  <div class="status-overlay" id="status-overlay">
+    <div class="status-box">
+      <div id="status-text">Ready</div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill"></div></div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

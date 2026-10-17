@@ -1,0 +1,39 @@
+{
+  "name": "nmcluncher",
+  "version": "1.3.0",
+  "description": "NMCLUNCHER - Minecraft 1.21.1 Client & Marketplace Engine",
+  "author": "NMC Team",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win"
+  },
+  "dependencies": {
+    "minecraft-launcher-core": "^3.2.3",
+    "msmc": "^4.0.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "electron": "^30.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.nmchosting.launcher",
+    "productName": "NMCLUNCHER",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "NMCLUNCHER"
+    }
+  }
+}

@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DYNASTORE Launcher - Minecraft 1.21.1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="launcher-header">
+    <div class="edition-title">
+      <img src="assets/dynastore_logo.png" class="header-logo-icon" alt="DYNASTORE">
+      <span>DYNASTORE LAUNCHER</span>
+      <span class="edition-sub">| PvP Edition</span>
+    </div>
+    <div class="header-right-controls">
+      <div class="window-controls">
+        <button id="btn-min" class="win-btn">−</button>
+        <button id="btn-close" class="win-btn">×</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Auto-Update Notification Banner -->
+  <div id="update-banner" class="update-banner" style="display: none;">
+    <div class="update-info">
+      <span class="update-bolt">⚡</span>
+      <span id="update-text">រកឃើញ Version ថ្មី...</span>
+    </div>
+    <div class="update-actions">
+      <div id="update-bar-container" class="update-bar-container" style="display: none;">
+        <div id="update-bar-fill" class="update-bar-fill"></div>
+      </div>
+      <button id="btn-restart-update" style="display: none;" class="btn-update-now">Restart ដើម្បី Update ⚡</button>
+      <button id="btn-close-update-banner" class="btn-update-dismiss" title="Dismiss">×</button>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <div class="nav-links">
+      <button class="nav-tab active" data-tab="play">Play</button>
+      <button class="nav-tab" data-tab="store">Marketplace</button>
+      <button class="nav-tab" data-tab="pvpmods">PvP HUD Mods ⚔</button>
+      <button class="nav-tab" data-tab="mods">Mods Manager</button>
+      <button class="nav-tab" data-tab="installations">Installations</button>
+      <button class="nav-tab" data-tab="skins">Skins</button>
+      <button class="nav-tab" data-tab="patchnotes">Patch Notes</button>
+    </div>
+
+    <div class="nav-right-actions">
+      <div class="account-nav-container">
+        <div class="account-profile-nav" id="account-dropdown-toggle">
+          <img id="nav-avatar" src="https://minotar.net/avatar/MHF_Steve/28" alt="Skin">
+          <div class="account-info-box">
+            <span id="nav-player-name">No Account</span>
+            <span id="nav-account-badge" class="badge-account badge-none">None</span>
+          </div>
+          <span class="account-arrow" id="account-arrow">▼</span>
+        </div>
+
+        <!-- Account Switcher Dropdown -->
+        <div class="account-dropdown-menu" id="account-dropdown-menu">
+          <div class="account-menu-header">
+            <span>PROFILES</span>
+            <button id="btn-open-add-modal" class="btn-menu-add">+ Add Account</button>
+          </div>
+          <div class="accounts-list" id="accounts-list">
+            <!-- Populated by renderer.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="viewport">
+    <section id="tab-play" class="tab-content active">
+      <div class="hero-artwork">
+        <div class="nmc-hero-brand">
+          <img src="assets/dynastore_logo.png" class="nmc-emblem" alt="DYNASTORE">
+          <div class="nmc-title-row">
+            <h1 class="nmc-title">DYNASTORE <span class="nmc-highlight">LAUNCHER</span></h1>
+          </div>
+          <div class="nmc-badge-row">
+            <span class="nmc-badge">MINECRAFT 1.21.1</span>
+            <span class="nmc-badge pvp">⚡ PVP CLIENT</span>
+            <button id="btn-discord-hero" class="btn-discord-action nmc-badge-discord" title="Join Discord Community">
+              <svg class="discord-svg-icon" viewBox="0 0 127.14 96.36" width="13" height="13" fill="currentColor">
+                <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.91,53.88,53,48.82,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.91,96.12,53,91.08,65.69,84.69,65.69Z"/>
+              </svg>
+              <span>DISCORD</span>
+            </button>
+            <button id="btn-telegram-hero" class="btn-telegram-action nmc-badge-telegram" title="Join Telegram Group">
+              <svg class="telegram-svg-icon" viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+              </svg>
+              <span>TELEGRAM</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="promo-banner">
+          <span>Deploy ultra-fast Minecraft servers with DYNASTORE Hosting!</span>
+          <button class="btn-gift" id="btn-store">DYNA STORE 🛒</button>
+        </div>
+      </div>
+
+      <div class="launch-footer">
+        <div class="video-preview-btn">
+          <button id="btn-trailer" title="Watch Trailer">▶</button>
+          <button id="btn-wallpaper-toggle" class="btn-footer-wallpaper" title="Change Wallpaper Background (Angkor, Trials, Cyber, Custom)">
+            🎨
+          </button>
+        </div>
+
+        <div class="version-selector-container">
+          <div class="version-dropdown-box" id="dropdown-toggle">
+            <img class="grass-icon" src="https://cdn-icons-png.flaticon.com/512/356/356725.png" alt="Grass">
+            <div class="version-meta">
+              <span class="v-title" id="selected-title">Fabric 1.21.1</span>
+              <span class="v-number" id="selected-ver">Custom Mods Active</span>
+            </div>
+            <span class="v-arrow">▼</span>
+          </div>
+
+          <div class="version-menu" id="version-menu">
+            <div class="v-option selected" data-title="Fabric 1.21.1" data-ver="1.21.1">
+              <img class="grass-icon" src="https://cdn-icons-png.flaticon.com/512/356/356725.png" alt="Grass">
+              <div>
+                <strong>Fabric 1.21.1</strong>
+                <small>Modded PvP Profile</small>
+              </div>
+            </div>
+            <div class="v-option" data-title="Latest release" data-ver="1.21.1">
+              <img class="grass-icon" src="https://cdn-icons-png.flaticon.com/512/356/356725.png" alt="Grass">
+              <div>
+                <strong>Latest release</strong>
+                <small>1.21.1 (Vanilla)</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-minecraft-play" id="btn-play">PLAY</button>
+
+        <div class="account-tag">
+          <span id="footer-username">Account Required</span>
+          <span class="nmc-footer-badge">POWERED BY DYNASTORE</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modrinth Marketplace Store -->
+    <section id="tab-store" class="tab-content">
+      <div class="store-container">
+        <!-- Store Header & Controls -->
+        <div class="store-topbar">
+          <div class="store-title-group">
+            <h2>Modrinth Marketplace</h2>
+            <span class="store-badge">⚡ 1.21.1 Fabric Compatible</span>
+          </div>
+
+          <div class="store-controls">
+            <!-- Search Input -->
+            <div class="store-search-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="store-search-input" placeholder="Search mods, shaders, resource packs..." autocomplete="off">
+              <button id="btn-clear-search" class="btn-clear-search" style="display: none;">×</button>
+            </div>
+
+            <!-- Filter Chips -->
+            <div class="store-filters">
+              <button class="filter-chip active" data-type="all">All</button>
+              <button class="filter-chip" data-type="mod">Mods</button>
+              <button class="filter-chip" data-type="resourcepack">Resource Packs</button>
+            </div>
+
+            <!-- Sort Dropdown -->
+            <div class="store-sort">
+              <label for="store-sort-select">Sort:</label>
+              <select id="store-sort-select">
+                <option value="downloads">Most Downloaded</option>
+                <option value="relevance">Relevance</option>
+                <option value="updated">Recently Updated</option>
+                <option value="newest">Newest</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Store Grid & Content -->
+        <div class="store-grid-wrapper">
+          <div class="store-state-msg" id="store-loading" style="display: none;">
+            <div class="store-spinner"></div>
+            <span>Connecting to Modrinth API v2...</span>
+          </div>
+          <div class="store-state-msg" id="store-empty" style="display: none;">
+            <span>No results found matching your search.</span>
+          </div>
+
+          <div class="store-grid" id="store-grid">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Pagination Bar -->
+          <div class="store-pagination" id="store-pagination" style="display: none;">
+            <button id="btn-store-prev" class="btn-page" disabled>◀ Previous</button>
+            <span id="store-page-info">Page 1</span>
+            <button id="btn-store-next" class="btn-page">Next ▶</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PvP HUD Mods Settings Tab -->
+    <section id="tab-pvpmods" class="tab-content">
+      <div class="pvp-settings-container">
+        <div class="pvp-header">
+          <div class="pvp-title-group">
+            <h2>Tournament PvP HUD & Combat Analytics</h2>
+            <p>Fabric 1.21.1 live in-game HUD modules. All settings sync instantly to <code>.minecraft/nmc_pvp_modules.json</code>.</p>
+          </div>
+          <div class="pvp-actions">
+            <button id="btn-discord-pvp" class="btn-discord-action pvp-discord-btn" title="Join Discord for HUD presets and PvP discussion">
+              <svg class="discord-svg-icon" viewBox="0 0 127.14 96.36" width="14" height="14" fill="currentColor">
+                <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.91,53.88,53,48.82,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.91,96.12,53,91.08,65.69,84.69,65.69Z"/>
+              </svg>
+              <span>PvP Discord</span>
+            </button>
+            <button id="btn-save-pvp" class="pvp-action-btn primary">💾 Save & Sync</button>
+            <button id="btn-reset-pvp" class="pvp-action-btn secondary">↺ Reset Defaults</button>
+          </div>
+        </div>
+
+        <div class="pvp-theme-bar">
+          <div class="theme-label">
+            <strong>HUD Accent Glow Color:</strong>
+            <span>Choose the primary neon color for Keystrokes, Coordinates, and Reach text</span>
+          </div>
+          <div class="color-palette">
+            <button class="color-pill active" data-color="#00f0ff" style="--c: #00f0ff;" title="Neon Cyan"></button>
+            <button class="color-pill" data-color="#22c55e" style="--c: #22c55e;" title="Emerald Green"></button>
+            <button class="color-pill" data-color="#a855f7" style="--c: #a855f7;" title="Phantom Purple"></button>
+            <button class="color-pill" data-color="#f43f5e" style="--c: #f43f5e;" title="Crimson Red"></button>
+            <button class="color-pill" data-color="#eab308" style="--c: #eab308;" title="Gold Yellow"></button>
+            <input type="color" id="pvp-custom-color" value="#00f0ff" title="Custom Hex Color">
+          </div>
+        </div>
+
+        <div class="pvp-grid">
+          <!-- Reach Display -->
+          <div class="pvp-card">
+            <div class="pvp-card-info">
+              <div class="pvp-card-title">
+                <span class="pvp-icon">🎯</span>
+                <strong>Reach Display</strong>
+                <span class="pvp-tag">Combat</span>
+              </div>
+              <p>Intercepts entity attacks and calculates Euclidean reach distance with smooth fade-out animation.</p>
+              <div class="pvp-preview">[2.87 Blocks]</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="pvp-toggle-reach" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- Target Health -->
+          <div class="pvp-card">
+            <div class="pvp-card-info">
+              <div class="pvp-card-title">
+                <span class="pvp-icon">❤</span>
+                <strong>Target Health Indicator</strong>
+                <span class="pvp-tag">Combat</span>
+              </div>
+              <p>Renders target opponent's username, health in hearts, and a dynamic color-coded HP bar.</p>
+              <div class="pvp-preview">PlayerName 10 ❤ [████████░░]</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="pvp-toggle-target-health" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- Ping & FPS Counter -->
+          <div class="pvp-card">
+            <div class="pvp-card-info">
+              <div class="pvp-card-title">
+                <span class="pvp-icon">⚡</span>
+                <strong>Ping & FPS Counter</strong>
+                <span class="pvp-tag">Analytics</span>
+              </div>
+              <p>Minimalist top-right corner pill showing real-time client frame rate and server latency (ms).</p>
+              <div class="pvp-preview">240 FPS | 38 ms</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="pvp-toggle-ping-fps" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- Keystrokes & Speedometer BPS -->
+          <div class="pvp-card">
+            <div class="pvp-card-info">
+              <div class="pvp-card-title">
+                <span class="pvp-icon">⌨</span>
+                <strong>Keystrokes & Speedometer (BPS)</strong>
+                <span class="pvp-tag">Movement</span>
+              </div>
+              <p>Displays WASD keys, LMB/RMB with CPS trackers, Space bar, and real-time Blocks-Per-Second velocity.</p>
+              <div class="pvp-preview">[W][A][S][D] LMB: 14 | RMB: 9 • 4.32 BPS</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="pvp-toggle-keystrokes" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- Armor & Held Item Status -->
+          <div class="pvp-card">
+            <div class="pvp-card-info">
+              <div class="pvp-card-title">
+                <span class="pvp-icon">🛡</span>
+                <strong>Armor & Weapon Durability Status</strong>
+                <span class="pvp-tag">Equipment</span>
+              </div>
+              <p>Renders equipped Helmet, Chestplate, Leggings, Boots, and held tool with exact numerical durability.</p>
+              <div class="pvp-preview">⚔ 1562 • ⛑ 364 • 🦺 528 • 👖 495 • 🥾 429</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="pvp-toggle-armor" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- Coordinates & Direction -->
+          <div class="pvp-card">
+            <div class="pvp-card-info">
+              <div class="pvp-card-title">
+                <span class="pvp-icon">🧭</span>
+                <strong>Coordinates & Cardinal Direction</strong>
+                <span class="pvp-tag">Navigation</span>
+              </div>
+              <p>Displays exact XYZ player coordinates and current facing compass cardinal direction (N, S, E, W).</p>
+              <div class="pvp-preview">(-55, 32, -40) N</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="pvp-toggle-coordinates" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- Crosshair CPS Combat Analytics -->
+          <div class="pvp-card">
+            <div class="pvp-card-info">
+              <div class="pvp-card-title">
+                <span class="pvp-icon">⚔</span>
+                <strong>Crosshair CPS Combat Analytics</strong>
+                <span class="pvp-tag">Combat</span>
+              </div>
+              <p>Displays instantaneous Left and Right click speeds directly centered near your crosshair.</p>
+              <div class="pvp-preview">12 | 8 CPS</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="pvp-toggle-crosshair-cps" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- Custom Tag & Rank -->
+          <div class="pvp-card full-width">
+            <div class="pvp-card-info">
+              <div class="pvp-card-title">
+                <span class="pvp-icon">🏷️</span>
+                <strong>Player Nametag & Rank Tag</strong>
+                <span class="pvp-tag">Customization</span>
+              </div>
+              <p>Configure custom prefix tag (e.g. [DEV], [NMC-PRO], [VIP]) and glow color in chat and HUD.</p>
+            </div>
+            <div class="tag-input-row">
+              <input type="text" id="pvp-tag-text" value="[NMC-PRO]" placeholder="[NMC-PRO]">
+              <input type="color" id="pvp-tag-color" value="#00e5ff" title="Tag Color">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-mods" class="tab-content">
+      <div class="mods-container">
+        <div class="mods-header">
+          <div>
+            <h2>Custom Modifications & Client Addons</h2>
+            <p>Add, toggle, or configure Fabric 1.21.1 mods. Built-in SimplePvP Mod syncs automatically with tournament HUD settings.</p>
+          </div>
+          <div class="mods-actions">
+            <button id="btn-open-custom-mod-modal" class="mod-action-btn primary">+ Add Custom Mod (.jar)</button>
+            <button id="btn-clean-mods" class="mod-action-btn secondary" title="Recover and activate .temp.jar mods">⚡ Clean & Repair</button>
+            <button id="btn-import-url" class="mod-action-btn secondary">🔗 Quick URL</button>
+            <button id="btn-open-folder" class="mod-action-btn secondary">📂 Open Mods</button>
+            <button id="btn-open-packs" class="mod-action-btn secondary">🎨 Packs</button>
+          </div>
+        </div>
+
+        <!-- Built-in Client & Core System Cards -->
+        <div class="mods-core-grid">
+          <!-- Card 1: DYNASTORE PvP Client Mod -->
+          <div class="core-mod-card" id="card-builtin-mod">
+            <div class="core-mod-left">
+              <div class="core-mod-icon mod-icon-dynastore">
+                <img src="assets/dynastore_logo.png" alt="DYNASTORE" class="core-mod-img-logo">
+              </div>
+              <div class="core-mod-info">
+                <div class="core-mod-title-row">
+                  <strong>DYNASTORE Client Mod</strong>
+                  <span class="core-badge badge-active" id="builtin-mod-badge">Active & Synced</span>
+                </div>
+                <div class="core-mod-sub"><code>SimplePvP-1.21.1-1.0.0.jar</code> • In-Game Reach, CPS, Keystrokes & Armor HUD</div>
+              </div>
+            </div>
+            <div class="core-mod-actions">
+              <button id="btn-reinject-client" class="btn-core-action" title="Re-copy the built-in mod into .minecraft/mods">⚡ Re-Inject Mod</button>
+            </div>
+          </div>
+
+          <!-- Card 2: Fabric API Core Library -->
+          <div class="core-mod-card" id="card-fabric-api">
+            <div class="core-mod-left">
+              <div class="core-mod-icon">🧶</div>
+              <div class="core-mod-info">
+                <div class="core-mod-title-row">
+                  <strong>Fabric API 1.21.1</strong>
+                  <span class="core-badge" id="fabric-api-badge">Checking...</span>
+                </div>
+                <div class="core-mod-sub">Essential core library required by 95% of custom Fabric mods.</div>
+              </div>
+            </div>
+            <div class="core-mod-actions">
+              <button id="btn-install-fabric-api" class="btn-core-action primary">Install Fabric API</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- URL Importer Drawer -->
+        <div class="url-import-bar" id="url-import-bar" style="display: none;">
+          <input type="text" id="url-import-input" placeholder="Paste Modrinth URL or slug (e.g. modrinth.com/mod/sodium or sodium)...">
+          <button id="btn-submit-url" class="btn-import-submit">Install</button>
+          <button id="btn-cancel-url" class="btn-import-cancel" title="Close">×</button>
+        </div>
+
+        <!-- Mods Search & Filter Bar -->
+        <div class="mods-filter-bar">
+          <div class="mods-filter-chips">
+            <button class="mod-chip active" data-mod-filter="all">All Mods</button>
+            <button class="mod-chip" data-mod-filter="custom">Custom Added</button>
+            <button class="mod-chip" data-mod-filter="builtin">Built-In & Core</button>
+            <button class="mod-chip" data-mod-filter="active">Active Only</button>
+            <button class="mod-chip" data-mod-filter="disabled">Disabled</button>
+          </div>
+
+          <div class="mods-search-row">
+            <input type="text" id="mods-search-input" placeholder="Search installed mods..." autocomplete="off">
+            <div class="mods-count-badge" id="mods-count-badge">Total Mods: 0</div>
+          </div>
+        </div>
+
+        <!-- Interactive Drag & Drop Area -->
+        <div class="drop-target-zone" id="mods-drop-zone">
+          <span class="drop-icon">📥</span>
+          <span class="drop-text">Drag & drop <strong>.jar</strong> custom mods here to install instantly (or click to browse)</span>
+        </div>
+
+        <div class="mods-table-wrapper">
+          <table class="mods-table">
+            <thead>
+              <tr>
+                <th style="width: 55px;">Status</th>
+                <th>Mod Name / File</th>
+                <th style="width: 140px;">Category</th>
+                <th style="width: 90px;">Size</th>
+                <th style="width: 130px; text-align: center;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="mods-list-body">
+              <tr><td colspan="5" style="text-align: center; color: #888;">Scanning for mods...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Complete Installations & Settings Tab -->
+    <section id="tab-installations" class="tab-content">
+      <div class="installations-container">
+        <div class="installations-header">
+          <div>
+            <h2>Installations & System Configuration</h2>
+            <p>Manage game versions, allocate system memory (RAM), configure Java 21 runtime, and fine-tune JVM launch parameters.</p>
+          </div>
+          <button id="btn-save-settings" class="pvp-action-btn primary">💾 Save Settings</button>
+        </div>
+
+        <!-- Profiles List -->
+        <div class="install-profiles-grid">
+          <!-- Profile 1: Fabric 1.21.1 -->
+          <div class="install-card active-profile">
+            <div class="install-card-left">
+              <img src="https://fabricmc.net/assets/logo.png" class="install-card-icon" alt="Fabric" onerror="this.src='https://cdn-icons-png.flaticon.com/512/356/356725.png'">
+              <div class="install-card-info">
+                <div class="install-card-title-row">
+                  <strong>Fabric 1.21.1 (DYNASTORE PvP Client)</strong>
+                  <span class="install-chip chip-active">Active Profile</span>
+                  <span class="install-chip chip-modded">Fabric 0.16.10</span>
+                </div>
+                <div class="install-card-sub">Directory: <code>.minecraft</code> • SimplePvP Mods Integration</div>
+              </div>
+            </div>
+            <div class="install-card-actions">
+              <button class="btn-profile-play" data-version="Fabric 1.21.1">▶ Play Now</button>
+              <button class="btn-profile-folder" id="btn-profile-open-mc">📂</button>
+            </div>
+          </div>
+
+          <!-- Profile 2: Vanilla 1.21.1 -->
+          <div class="install-card">
+            <div class="install-card-left">
+              <img src="https://cdn-icons-png.flaticon.com/512/356/356725.png" class="install-card-icon" alt="Vanilla">
+              <div class="install-card-info">
+                <div class="install-card-title-row">
+                  <strong>Minecraft 1.21.1 (Vanilla Official)</strong>
+                  <span class="install-chip chip-vanilla">Pure Vanilla</span>
+                </div>
+                <div class="install-card-sub">Tricky Trials Update 1.21.1 release without custom mods</div>
+              </div>
+            </div>
+            <div class="install-card-actions">
+              <button class="btn-profile-play" data-version="1.21.1">▶ Play Now</button>
+              <button class="btn-profile-folder" id="btn-profile-open-vanilla">📂</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hardware & Performance Configuration -->
+        <div class="settings-box">
+          <h3 class="settings-box-title">⚡ Hardware & Performance Tuning</h3>
+          
+          <div class="settings-grid">
+            <!-- RAM Memory Allocation -->
+            <div class="setting-item">
+              <div class="setting-label">
+                <strong>Allocated Memory (RAM Maximum Heap)</strong>
+                <span>Controls how much RAM Minecraft can use. 4 GB - 6 GB is optimal for 1.21.1 Fabric PvP.</span>
+              </div>
+              <div class="ram-selector-group">
+                <div class="ram-buttons" id="ram-pills">
+                  <button class="ram-pill" data-ram="2G">2 GB</button>
+                  <button class="ram-pill active" data-ram="4G">4 GB (Recommended)</button>
+                  <button class="ram-pill" data-ram="6G">6 GB</button>
+                  <button class="ram-pill" data-ram="8G">8 GB</button>
+                  <button class="ram-pill" data-ram="12G">12 GB</button>
+                </div>
+                <input type="hidden" id="setting-ram-max" value="4G">
+                <input type="hidden" id="setting-ram-min" value="2G">
+              </div>
+            </div>
+
+            <!-- Java Executable Path -->
+            <div class="setting-item">
+              <div class="setting-label">
+                <strong>Java 21 Executable Path</strong>
+                <span>Auto-detected OpenJDK 21 or custom runtime binary (javaw.exe / java.exe).</span>
+              </div>
+              <div class="setting-input-browse">
+                <input type="text" id="setting-java-path" placeholder="Auto-Detect (Using JRE 21 Hotspot)..." spellcheck="false">
+                <button id="btn-browse-java" class="btn-browse">📁 Browse...</button>
+                <button id="btn-detect-java" class="btn-browse-reset" title="Auto-Detect">Auto</button>
+              </div>
+            </div>
+
+            <!-- Game Root Directory -->
+            <div class="setting-item">
+              <div class="setting-label">
+                <strong>Minecraft Data Folder (Root)</strong>
+                <span>Game installation directory for versions, assets, mods, and saves.</span>
+              </div>
+              <div class="setting-input-browse">
+                <input type="text" id="setting-game-dir" placeholder="%APPDATA%/.minecraft" spellcheck="false">
+                <button id="btn-browse-game-dir" class="btn-browse">📁 Change...</button>
+                <button id="btn-open-game-dir" class="btn-browse-open" title="Open Folder">📂 Open</button>
+              </div>
+            </div>
+
+            <!-- JVM Arguments -->
+            <div class="setting-item full-span">
+              <div class="setting-label">
+                <strong>Custom JVM Launch Arguments</strong>
+                <span>Advanced Garbage Collection and memory parameters passed to Java.</span>
+              </div>
+              <div class="jvm-presets-row">
+                <span>Presets:</span>
+                <button class="btn-jvm-preset" id="preset-g1gc">High-Performance G1GC</button>
+                <button class="btn-jvm-preset" id="preset-aikar">Aikar Low-Latency</button>
+                <button class="btn-jvm-preset" id="preset-vanilla">Standard Default</button>
+              </div>
+              <textarea id="setting-jvm-args" class="jvm-textarea" rows="2" spellcheck="false">-XX:+UseG1GC -Dsun.rmi.dgc.server.gcInterval=2147483646 -XX:+UnlockExperimentalVMOptions -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32M</textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Complete Skins & Character Studio Tab -->
+    <section id="tab-skins" class="tab-content">
+      <div class="skins-container">
+        <div class="skins-header">
+          <div>
+            <h2>Character Appearance & Skin Studio</h2>
+            <p>Customize your character's in-game look. Choose from PvP combat skins, clone any player's skin, or upload custom artwork.</p>
+          </div>
+        </div>
+
+        <div class="skins-studio-layout">
+          <!-- Left: Live Render Card -->
+          <div class="skin-preview-stage">
+            <div class="skin-stage-card">
+              <div class="stage-render-box">
+                <img id="skin-body-render" src="https://minotar.net/armor/body/Steve/220.png" alt="Full Character Render" class="skin-model-image">
+              </div>
+              <div class="stage-player-info">
+                <div class="stage-name-row">
+                  <h3 id="skin-studio-name">Player</h3>
+                  <span id="skin-studio-badge" class="badge-account badge-offline">Offline</span>
+                </div>
+                <div class="stage-uuid" id="skin-studio-uuid">UUID: offline_player</div>
+                <button id="btn-refresh-skin" class="btn-skin-action secondary">↺ Refresh Skin View</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Skin Selector & Upload -->
+          <div class="skin-controls-pane">
+            <!-- 1. Copy Player Skin -->
+            <div class="skin-section-box">
+              <h4>Clone Skin from Username</h4>
+              <p>Enter any Minecraft player name to borrow their official Mojang skin:</p>
+              <div class="skin-input-row">
+                <input type="text" id="skin-clone-input" placeholder="e.g. Technoblade, Dream, Rosv2..." spellcheck="false">
+                <button id="btn-apply-clone-skin" class="btn-skin-action primary">Clone & Apply</button>
+              </div>
+            </div>
+
+            <!-- 2. Custom Upload -->
+            <div class="skin-section-box">
+              <h4>Upload Custom .PNG Skin File</h4>
+              <p>Load your custom 64x64 or 64x32 skin image directly from your computer:</p>
+              <div class="skin-upload-row">
+                <button id="btn-browse-skin-file" class="btn-skin-action primary">🖼 Browse Skin File (.png)...</button>
+              </div>
+            </div>
+
+            <!-- 3. Curated PvP Skin Presets -->
+            <div class="skin-section-box">
+              <h4>Tournament PvP Skin Presets</h4>
+              <div class="skin-presets-grid">
+                <div class="skin-preset-card" data-user="Ninja">
+                  <img src="https://minotar.net/helm/Ninja/44" alt="Ninja">
+                  <span>Cyber Shinobi</span>
+                </div>
+                <div class="skin-preset-card" data-user="Cyan">
+                  <img src="https://minotar.net/helm/Cyan/44" alt="Cyan">
+                  <span>Neon Assassin</span>
+                </div>
+                <div class="skin-preset-card" data-user="Knight">
+                  <img src="https://minotar.net/helm/Knight/44" alt="Knight">
+                  <span>Void Knight</span>
+                </div>
+                <div class="skin-preset-card" data-user="Diamond">
+                  <img src="https://minotar.net/helm/Diamond/44" alt="Diamond">
+                  <span>Diamond Slayer</span>
+                </div>
+                <div class="skin-preset-card" data-user="Dragon">
+                  <img src="https://minotar.net/helm/Dragon/44" alt="Dragon">
+                  <span>Dragon Warrior</span>
+                </div>
+                <div class="skin-preset-card" data-user="Reaper">
+                  <img src="https://minotar.net/helm/Reaper/44" alt="Reaper">
+                  <span>Crimson Reaper</span>
+                </div>
+                <div class="skin-preset-card" data-user="Steve">
+                  <img src="https://minotar.net/helm/Steve/44" alt="Steve">
+                  <span>Classic Steve</span>
+                </div>
+                <div class="skin-preset-card" data-user="Alex">
+                  <img src="https://minotar.net/helm/Alex/44" alt="Alex">
+                  <span>Classic Alex</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-patchnotes" class="tab-content">
+      <div class="tab-inner">
+        <h2>Minecraft 1.21.1: Tricky Trials</h2>
+        <p>Official update containing Trial Chambers, Breeze mob, and Crafter automation blocks.</p>
+
+        <!-- Official Discord Community Banner -->
+        <div class="discord-community-banner">
+          <div class="discord-banner-content">
+            <div class="discord-icon-badge">
+              <svg class="discord-svg-large" viewBox="0 0 127.14 96.36" width="36" height="36" fill="#fff">
+                <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.91,53.88,53,48.82,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.91,96.12,53,91.08,65.69,84.69,65.69Z"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Official DYNASTORE Discord Community</h3>
+              <p>Connect with other players, get custom PvP HUD presets, report bugs, and receive 24/7 instant support!</p>
+              <div class="discord-link-badge">https://discord.gg/ZnHuvUqpn</div>
+            </div>
+          </div>
+          <button id="btn-discord-patchnotes" class="btn-discord-action btn-discord-cta">
+            <span>Join Discord</span>
+            <span class="discord-arrow">⚡</span>
+          </button>
+        </div>
+
+        <!-- Official Telegram Community Banner -->
+        <div class="telegram-community-banner" style="margin-top: 14px;">
+          <div class="telegram-banner-content">
+            <div class="telegram-icon-badge">
+              <svg class="telegram-svg-large" viewBox="0 0 24 24" width="36" height="36" fill="#fff">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Official DYNASTORE Telegram Group</h3>
+              <p>Join our active Telegram community for announcements, giveaways, and fast discussion!</p>
+              <div class="telegram-link-badge">https://t.me/+Gzx1VlNQa3Q0YTJl</div>
+            </div>
+          </div>
+          <button id="btn-telegram-patchnotes" class="btn-telegram-action btn-telegram-cta">
+            <span>Join Telegram</span>
+            <span class="telegram-arrow">✈</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="status-overlay" id="status-overlay">
+    <div class="status-box">
+      <div id="status-text">Ready</div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- Add Account Modal -->
+  <div class="modal-backdrop" id="account-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span style="margin-right: 6px;">👤</span> Add Minecraft Account
+        </div>
+        <button class="modal-close-btn" id="btn-close-modal">×</button>
+      </div>
+
+      <div class="modal-tabs">
+        <button class="modal-tab-btn active" data-tab="tab-ms">Official Microsoft</button>
+        <button class="modal-tab-btn" data-tab="tab-offline">Custom / Offline</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Microsoft Tab Panel -->
+        <div class="modal-panel active" id="panel-tab-ms">
+          <div class="ms-promo-card">
+            <div class="ms-logo-badge">
+              <span class="ms-tile red"></span>
+              <span class="ms-tile green"></span>
+              <span class="ms-tile blue"></span>
+              <span class="ms-tile yellow"></span>
+            </div>
+            <div class="ms-details">
+              <strong>Official Paid Account</strong>
+              <p>Sign in with your Microsoft account to play on official multiplayer networks (Hypixel, Mineplex), Realms, and keep your genuine Mojang skin.</p>
+            </div>
+          </div>
+          <button id="btn-modal-login-ms" class="btn-primary-action ms-login-btn">
+            Login with Microsoft
+          </button>
+        </div>
+
+        <!-- Offline Profile Tab Panel -->
+        <div class="modal-panel" id="panel-tab-offline">
+          <div class="offline-card">
+            <div class="offline-avatar-preview">
+              <img id="offline-skin-preview" src="https://minotar.net/avatar/Steve/56" alt="Skin">
+              <small>Live Preview</small>
+            </div>
+            <div class="offline-fields">
+              <label for="offline-name-input">Minecraft Username</label>
+              <input type="text" id="offline-name-input" placeholder="e.g. Shadow_PvP" maxlength="16" autocomplete="off" spellcheck="false">
+              <span class="validation-message" id="offline-val-msg">3–16 letters, numbers, or underscores</span>
+            </div>
+          </div>
+          <button id="btn-modal-create-offline" class="btn-primary-action offline-create-btn" disabled>
+            Create Offline Profile
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wallpaper Selector Modal -->
+  <div class="wallpaper-popup-backdrop" id="wallpaper-modal" style="display: none;">
+    <div class="wallpaper-popup-box">
+      <div class="wallpaper-popup-header">
+        <div class="wallpaper-popup-title">
+          <span>🎨</span> DYNASTORE Launcher Background Wallpaper
+        </div>
+        <button class="wallpaper-close-btn" id="btn-close-wallpaper">×</button>
+      </div>
+      <div class="wallpaper-options-grid">
+        <div class="wallpaper-card active" data-bg="angkor">
+          <div class="wallpaper-preview" style="background-image: url('assets/hero.png');">
+            <span class="wallpaper-badge">Active</span>
+          </div>
+          <div class="wallpaper-card-info">
+            <strong>🏛 Angkor Khmer Temple</strong>
+            <small>Traditional Majestic Heritage (Current)</small>
+          </div>
+        </div>
+
+        <div class="wallpaper-card" data-bg="trials">
+          <div class="wallpaper-preview" style="background-image: url('https://launchercontent.mojang.com/v2/backgrounds/1.21.1.jpg');">
+          </div>
+          <div class="wallpaper-card-info">
+            <strong>⚔ Tricky Trials 1.21.1</strong>
+            <small>Official Minecraft Artwork</small>
+          </div>
+        </div>
+
+        <div class="wallpaper-card" data-bg="cyber">
+          <div class="wallpaper-preview" style="background: radial-gradient(circle at center, #ef4444 0%, #030712 85%);">
+          </div>
+          <div class="wallpaper-card-info">
+            <strong>🌌 DYNASTORE Neon Dark</strong>
+            <small>Ultra Red & Blue Glow</small>
+          </div>
+        </div>
+
+        <div class="wallpaper-card custom" id="card-custom-wallpaper" data-bg="custom">
+          <div class="wallpaper-preview upload-zone">
+            <span class="upload-icon">📁</span>
+            <span>Custom File</span>
+          </div>
+          <div class="wallpaper-card-info">
+            <strong>🖼 Choose from Computer...</strong>
+            <small>Upload your own PNG or JPG</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Custom Mod Modal -->
+  <div class="custom-mod-popup-backdrop" id="modal-custom-mod" style="display: none;">
+    <div class="custom-mod-popup-box">
+      <div class="custom-mod-popup-header">
+        <div class="custom-mod-popup-title">
+          <span>➕</span> Add Custom Mod to DYNASTORE
+        </div>
+        <button class="custom-mod-close-btn" id="btn-close-custom-mod-modal">×</button>
+      </div>
+
+      <div class="custom-mod-tabs">
+        <button class="cmod-tab active" data-pane="pane-browse">📁 Browse Computer (.jar)</button>
+        <button class="cmod-tab" data-pane="pane-url">🔗 Modrinth / Direct Link</button>
+        <button class="cmod-tab" data-pane="pane-popular">⭐ Recommended PvP Addons</button>
+      </div>
+
+      <div class="custom-mod-body">
+        <!-- Pane 1: Browse / Drop Local .jar -->
+        <div class="cmod-pane active" id="pane-browse">
+          <div class="modal-drop-area" id="modal-drop-area">
+            <span class="drop-big-icon">📦</span>
+            <h4>Drag & Drop your .jar files here</h4>
+            <p>Supports any Fabric 1.21.1 compatible modification</p>
+            <button id="btn-modal-browse-jars" class="btn-modal-browse">📂 Choose .jar Files...</button>
+          </div>
+          <div class="cmod-file-queue" id="cmod-file-queue" style="display: none;">
+            <div class="queue-header">
+              <span>Ready to Install:</span>
+              <span id="cmod-queue-count">0 files</span>
+            </div>
+            <div class="queue-list" id="cmod-queue-list"></div>
+            <button id="btn-confirm-install-queue" class="btn-primary-action" style="margin-top: 10px;">Install to Game Now</button>
+          </div>
+        </div>
+
+        <!-- Pane 2: Online Quick Downloader -->
+        <div class="cmod-pane" id="pane-url">
+          <div class="cmod-url-box">
+            <label for="cmod-url-input">Modrinth Project URL or Slug Name:</label>
+            <div class="cmod-input-group">
+              <input type="text" id="cmod-url-input" placeholder="e.g. sodium, iris, modrinth.com/mod/lithium, replaymod..." autocomplete="off">
+              <button id="btn-cmod-download-url" class="btn-primary-action">Download & Install</button>
+            </div>
+            <small style="color: #94a3b8; display: block; margin-top: 6px;">DYNASTORE will automatically resolve the latest Fabric 1.21.1 compatible release and verify file integrity.</small>
+          </div>
+        </div>
+
+        <!-- Pane 3: Curated Popular Addons Grid -->
+        <div class="cmod-pane" id="pane-popular">
+          <div class="popular-mods-intro">
+            <span>Essential Fabric 1.21.1 performance, graphics, and gameplay enhancements:</span>
+          </div>
+          <div class="popular-mods-grid">
+            <!-- Sodium -->
+            <div class="popular-mod-item">
+              <div class="pop-info">
+                <strong>Sodium</strong>
+                <p>Next-generation rendering engine giving massive FPS boost & reduced stutter.</p>
+              </div>
+              <button class="btn-pop-install" data-slug="sodium">Install</button>
+            </div>
+
+            <!-- Iris Shaders -->
+            <div class="popular-mod-item">
+              <div class="pop-info">
+                <strong>Iris Shaders</strong>
+                <p>Modern shader pack pipeline with ultra-smooth shader performance.</p>
+              </div>
+              <button class="btn-pop-install" data-slug="iris">Install</button>
+            </div>
+
+            <!-- Lithium -->
+            <div class="popular-mod-item">
+              <div class="pop-info">
+                <strong>Lithium</strong>
+                <p>Physics, chunk loading, and internal AI performance optimization mod.</p>
+              </div>
+              <button class="btn-pop-install" data-slug="lithium">Install</button>
+            </div>
+
+            <!-- FerriteCore -->
+            <div class="popular-mod-item">
+              <div class="pop-info">
+                <strong>FerriteCore</strong>
+                <p>Significantly reduces Minecraft's RAM consumption up to 40%.</p>
+              </div>
+              <button class="btn-pop-install" data-slug="ferrite-core">Install</button>
+            </div>
+
+            <!-- AppleSkin -->
+            <div class="popular-mod-item">
+              <div class="pop-info">
+                <strong>AppleSkin</strong>
+                <p>Visual food saturation & hunger value HUD overlays in survival and PvP.</p>
+              </div>
+              <button class="btn-pop-install" data-slug="appleskin">Install</button>
+            </div>
+
+            <!-- Mod Menu -->
+            <div class="popular-mod-item">
+              <div class="pop-info">
+                <strong>Mod Menu</strong>
+                <p>In-game mod list screen and configurations manager.</p>
+              </div>
+              <button class="btn-pop-install" data-slug="modmenu">Install</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full-Window Drag & Drop Overlay -->
+  <div class="drag-drop-overlay" id="drag-drop-overlay">
+    <div class="drag-drop-box">
+      <div class="drag-icon">📦</div>
+      <h3>Drop Files to Install</h3>
+      <p>Drop <strong>.jar</strong> mods to install to <code>mods/</code><br>Drop <strong>.zip</strong> resource packs to install to <code>resourcepacks/</code></p>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
