@@ -38,8 +38,8 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "YOUR_GITHUB_USERNAME",
-        "repo": "YOUR_REPOSITORY_NAME"
+        "owner": "Dara13144",
+        "repo": "Khmer-luncher.exe"
       }
     ],
     "win": {
